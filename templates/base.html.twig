@@ -28,6 +28,7 @@
             </nav>
             <div class="connect_links">
                 {% if is_granted('ROLE_USER') %}
+                    <a href="{{ path('app_') }}">Ma cave</a>
                     <a href="{{ path('app_logout') }}">Déconnexion</a>
                 {% else %}
                     <a href="{{ path('app_login') }}">Connexion</a>
