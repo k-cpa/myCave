@@ -17,18 +17,8 @@ final class HomeController extends AbstractController{
         ]);
     }
 
-
-// Partie pour la page bouteille unité qui présente le détail de chaque bouteille 
-    #[Route('/unit/bottle', name: 'app_unit_bottle')]
-    public function unitBottle(): Response
-    {
-        return $this->render('home/unitBottle.html.twig', [
-            'controller_name' => 'UnitBottleController',
-        ]);
-    }
-
-    // Partie cave de chaque utilisateurs. Définir le format d'affichage
-    #[Route('/cave', name: 'app_cave')]
+    // TEMPLATE cave de chaque utilisateurs. Définir le format d'affichage
+    #[Route('/all/caves', name: 'app_allCaves')]
     public function caves(): Response
     {
         return $this->render('home/caves.html.twig', [
@@ -36,13 +26,21 @@ final class HomeController extends AbstractController{
         ]);
     }
 
-    // Partie toutes les bouteilles présentes sur le site. Avec filtres cépages / région / pays / année 
-    // Par défaut -> Filtre A/Z
-    #[Route('/bottle', name: 'app_bottle')]
-    public function AllBottles(): Response
+    // TEMPLATE cave sélectionnée par l'utilisateur dans allCaves
+    #[Route('/unit/cave', name: 'app_unit_cave')]
+    public function index(): Response
     {
-        return $this->render('home/bottle.html.twig', [
-            'controller_name' => 'BottleController',
+        return $this->render('unit_cave/index.html.twig', [
+            'controller_name' => 'UnitCaveController',
+        ]);
+    }
+
+    // TEMPLATE pour la page bouteille unité qui présente le détail de chaque bouteille 
+    #[Route('/unit/bottle', name: 'app_unit_bottle')]
+    public function unitBottle(): Response
+    {
+        return $this->render('home/unitBottle.html.twig', [
+            'controller_name' => 'UnitBottleController',
         ]);
     }
 }
