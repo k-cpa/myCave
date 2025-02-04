@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\BottlesRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: BottlesRepository::class)]
 class Bottles
@@ -27,13 +29,26 @@ class Bottles
     #[ORM\JoinColumn(nullable: false)]
     private ?Cellars $cellar = null;
 
-    #[ORM\ManyToOne(inversedBy: 'grapes')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Countries $countries = null;
-
     #[ORM\ManyToOne(inversedBy: 'bottles')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Grapes $grapes = null;
+
+    #[ORM\Column]
+    #[Assert\Range(
+        min: 1800, // Année minimale
+        notInRangeMessage: 'L\'année doit être comprise entre {{ min }} et l\'année en cours'
+    )]
+    #[Assert\Callback]
+    public function validateYear(ExecutionContextInterface $context): void
+    {
+        $currentYear = (int) date('Y');
+        if ($this->year > $currentYear) {
+            $context->buildViolation('L\'année ne peut pas être supérieure à ' . $currentYear . '.')
+                ->atPath('year')
+                ->addViolation();
+        }
+    }
+    private ?int $year = null;
 
     public function getId(): ?int
     {
@@ -88,18 +103,6 @@ class Bottles
         return $this;
     }
 
-    public function getCountries(): ?Countries
-    {
-        return $this->countries;
-    }
-
-    public function setCountries(?Countries $countries): static
-    {
-        $this->countries = $countries;
-
-        return $this;
-    }
-
     public function getGrapes(): ?Grapes
     {
         return $this->grapes;
@@ -108,6 +111,18 @@ class Bottles
     public function setGrapes(?Grapes $grapes): static
     {
         $this->grapes = $grapes;
+
+        return $this;
+    }
+
+    public function getYear(): ?int
+    {
+        return $this->year;
+    }
+
+    public function setYear(int $year): static
+    {
+        $this->year = $year;
 
         return $this;
     }

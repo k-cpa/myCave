@@ -19,14 +19,15 @@ class Countries
     private ?string $name = null;
 
     /**
-     * @var Collection<int, Bottles>
+     * @var Collection<int, Regions>
      */
-    #[ORM\OneToMany(targetEntity: Bottles::class, mappedBy: 'countries')]
-    private Collection $bottles;
+    #[ORM\OneToMany(targetEntity: Regions::class, mappedBy: 'country', orphanRemoval: true)]
+    private Collection $regions;
 
     public function __construct()
     {
-        $this->bottles = new ArrayCollection();
+        // 
+        $this->regions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -47,29 +48,29 @@ class Countries
     }
 
     /**
-     * @return Collection<int, Bottles>
+     * @return Collection<int, Regions>
      */
-    public function getBottles(): Collection
+    public function getRegions(): Collection
     {
-        return $this->bottles;
+        return $this->regions;
     }
 
-    public function addBottle(Bottles $bottle): static
+    public function addRegion(Regions $region): static
     {
-        if (!$this->bottles->contains($bottle)) {
-            $this->bottles->add($bottle);
-            $bottle->setCountries($this);
+        if (!$this->regions->contains($region)) {
+            $this->regions->add($region);
+            $region->setCountry($this);
         }
 
         return $this;
     }
 
-    public function removeBottle(Bottles $bottle): static
+    public function removeRegion(Regions $region): static
     {
-        if ($this->bottles->removeElement($bottle)) {
+        if ($this->regions->removeElement($region)) {
             // set the owning side to null (unless already changed)
-            if ($bottle->getCountries() === $this) {
-                $bottle->setCountries(null);
+            if ($region->getCountry() === $this) {
+                $region->setCountry(null);
             }
         }
 
