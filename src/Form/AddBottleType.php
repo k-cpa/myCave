@@ -7,8 +7,10 @@ use App\Entity\Cellars;
 use App\Entity\Grapes;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class AddBottleType extends AbstractType
 {
@@ -18,7 +20,17 @@ class AddBottleType extends AbstractType
             ->add('name')
             ->add('description')
             ->add('year')
-            ->add('image')
+            ->add('image', FileType::class, [
+                'required' => true,
+                'mapped' => true,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2M',
+                        'mimeTypes' => ['image/jpeg', 'image/png', 'image/gif'],
+                        'mimeTypesMessage' => 'Veuillez télécharger une image au format valide (JPEG, PNG, GIF).',
+                    ])
+                ],
+            ])
             ->add('cellar', EntityType::class, [
                 'class' => Cellars::class,
                 'choice_label' => 'id',
@@ -26,8 +38,7 @@ class AddBottleType extends AbstractType
             ->add('grapes', EntityType::class, [
                 'class' => Grapes::class,
                 'choice_label' => 'id',
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

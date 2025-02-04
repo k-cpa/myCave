@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\BottlesRepository;
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: BottlesRepository::class)]
 class Bottles
@@ -49,8 +52,15 @@ class Bottles
         }
     }
 
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
+    #[Vich\UploadableField(mapping:'images', fileNameproperty: 'imageName')]
+    private ?File $imageFile = null;
+    
+    #[ORM\Column(nullable: false)]
+    private ?string $imageName = null;
+
+    // Obligatoire car bug avec symfony qui ne prend pas si on change uniquement une image
+    #[ORM\Column(nullable: true)]
+    private ?DateTimeImmutable $updatedAt = null;
 
     public function getId(): ?int
     {
@@ -117,15 +127,28 @@ class Bottles
         return $this;
     }
 
-    public function getImage(): ?string
+    public function setImageFile(?File $imageFile = null): void 
     {
-        return $this->image;
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // Si fichier chargé, met à jour la date
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 
-    public function setImage(string $image): static
+    public function getImageFile() : ?File
     {
-        $this->image = $image;
+        return $this->imageFile;
+    }
 
-        return $this;
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
     }
 }
