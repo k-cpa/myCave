@@ -91,12 +91,12 @@ class Bottles
         return $this;
     }
 
-    public function getCellare(): ?Cellars
+    public function getCellars(): ?Cellars
     {
         return $this->cellar;
     }
 
-    public function setCellar(?Cellars $cellar): static
+    public function setCellars(?Cellars $cellar): static
     {
         $this->cellar = $cellar;
 

@@ -59,7 +59,7 @@ class Cellars
     {
         if (!$this->bottles->contains($bottle)) {
             $this->bottles->add($bottle);
-            $bottle->setCave($this);
+            $bottle->setCellars($this);
         }
 
         return $this;
@@ -69,8 +69,8 @@ class Cellars
     {
         if ($this->bottles->removeElement($bottle)) {
             // set the owning side to null (unless already changed)
-            if ($bottle->getCave() === $this) {
-                $bottle->setCave(null);
+            if ($bottle->getCellars() === $this) {
+                $bottle->setCellars(null);
             }
         }
 
