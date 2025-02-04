@@ -26,7 +26,7 @@ class SigninType extends AbstractType
                 'first_options' => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => 'Confirmez votre mot de passe'],
                 'invalid_message' => 'Les mots de passe doivent correspondre',
-                'contraints' => [
+                'constraints' => [
                     new NotBlank(['message' => 'Le mot de passe est requis']),
                     new Length([
                         'min' => 8,

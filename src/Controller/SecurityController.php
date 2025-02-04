@@ -15,7 +15,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
             // POUR S'INSCRIRE
-    #[Route('/signIn', name: 'app_signIn')]
+    #[Route('/signIn', name: 'app_signin')]
     public function register(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHash): Response
     {
 
@@ -40,7 +40,7 @@ class SecurityController extends AbstractController
 
         }
 
-        return $this->render('security/signIn.html.twig', [
+        return $this->render('security/signin.html.twig', [
             'formSignIn' => $formSignIn->createView(),
         ]);
     }
