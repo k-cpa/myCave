@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Bottles;
+use App\Form\AddBottleType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
+final class AddBottleController extends AbstractController{
+
+    #[IsGranted('ROLE_USER')]
+    #[Route('/add/bottle', name: 'app_addBottle')]
+    public function addNewBottle(Request $request, EntityManagerInterface $entityManager): Response
+    {
+
+        $bottle = new Bottles();
+
+        $addBottleForm = $this->createForm(AddBottleType::class, $bottle);
+        $addBottleForm->handleRequest($request);
+
+        if ($addBottleForm->isSubmitted() && $addBottleForm->isValid()) {
+
+            $entityManager->persist($bottle);
+
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre bouteille a été ajoutée avec succès !');
+
+            return $this->redirectToRoute('app_addBottle');
+        }
+
+        return $this->render('addBottle.html.twig', [
+            'addBottleForm' => $addBottleForm->createView(),
+        ]);
+    }
+}
