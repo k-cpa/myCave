@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SignInController!{% endblock %}
+
+{% block body %}
+
+ <h2 class="sign_in">Créer un compte</h2> 
+
+ 	{{form_start(formSignIn)}}
+	    {{form_row(formSignIn.email)}}
+	    {{form_row(formSignIn.username)}}
+	    {{form_row(formSignIn.password)}}
+	    {{form_row(formSignIn.submit)}}
+	{{form_end(formSignIn)}}
+    
+{% endblock %}
