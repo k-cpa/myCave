@@ -22,9 +22,6 @@ class Bottles
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
-
     #[ORM\ManyToOne(inversedBy: 'bottles')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Cellars $cellar = null;
@@ -33,7 +30,10 @@ class Bottles
     #[ORM\JoinColumn(nullable: false)]
     private ?Grapes $grapes = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
+    private ?int $year = null;
+
+    // Assert pour year
     #[Assert\Range(
         min: 1800, // Année minimale
         notInRangeMessage: 'L\'année doit être comprise entre {{ min }} et l\'année en cours'
@@ -48,7 +48,9 @@ class Bottles
                 ->addViolation();
         }
     }
-    private ?int $year = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
 
     public function getId(): ?int
     {
@@ -79,24 +81,12 @@ class Bottles
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): static
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    public function getCellars(): ?Cellars
+    public function getCellar(): ?Cellars
     {
         return $this->cellar;
     }
 
-    public function setCellars(?Cellars $cellar): static
+    public function setCellar(?Cellars $cellar): static
     {
         $this->cellar = $cellar;
 
@@ -123,6 +113,18 @@ class Bottles
     public function setYear(int $year): static
     {
         $this->year = $year;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

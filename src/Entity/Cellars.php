@@ -22,7 +22,7 @@ class Cellars
     /**
      * @var Collection<int, Bottles>
      */
-    #[ORM\OneToMany(targetEntity: Bottles::class, mappedBy: 'cave', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Bottles::class, mappedBy: 'cellar', orphanRemoval: true)]
     private Collection $bottles;
 
     public function __construct()
@@ -59,7 +59,7 @@ class Cellars
     {
         if (!$this->bottles->contains($bottle)) {
             $this->bottles->add($bottle);
-            $bottle->setCellars($this);
+            $bottle->setCellar($this);
         }
 
         return $this;
@@ -69,8 +69,8 @@ class Cellars
     {
         if ($this->bottles->removeElement($bottle)) {
             // set the owning side to null (unless already changed)
-            if ($bottle->getCellars() === $this) {
-                $bottle->setCellars(null);
+            if ($bottle->getCellar() === $this) {
+                $bottle->setCellar(null);
             }
         }
 

@@ -2,6 +2,12 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Bottles;
+use App\Entity\Cellars;
+use App\Entity\Countries;
+use App\Entity\Grapes;
+use App\Entity\Regions;
+use App\Entity\Users;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -47,6 +53,12 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToCrud('Les utilisateurs', 'fas fa-list', Users::class);
+        yield MenuItem::linkToCrud('Les caves', 'fas fa-list', Cellars::class);
+        yield MenuItem::linkToCrud('Les bouteilles', 'fas fa-list', Bottles::class);
+        yield MenuItem::linkToCrud('Les cépages', 'fas fa-list', Grapes::class);
+        yield MenuItem::linkToCrud('Les pays', 'fas fa-list', Countries::class);
+        yield MenuItem::linkToCrud('Les régions', 'fas fa-list', Regions::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }
