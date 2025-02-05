@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RegionsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RegionsRepository::class)]
@@ -19,6 +21,17 @@ class Regions
     #[ORM\ManyToOne(inversedBy: 'regions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Countries $country = null;
+
+    /**
+     * @var Collection<int, Bottles>
+     */
+    #[ORM\OneToMany(targetEntity: Bottles::class, mappedBy: 'regions')]
+    private Collection $bottles;
+
+    public function __construct()
+    {
+        $this->bottles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -45,6 +58,36 @@ class Regions
     public function setCountry(?Countries $country): static
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Bottles>
+     */
+    public function getBottles(): Collection
+    {
+        return $this->bottles;
+    }
+
+    public function addBottle(Bottles $bottle): static
+    {
+        if (!$this->bottles->contains($bottle)) {
+            $this->bottles->add($bottle);
+            $bottle->setRegions($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBottle(Bottles $bottle): static
+    {
+        if ($this->bottles->removeElement($bottle)) {
+            // set the owning side to null (unless already changed)
+            if ($bottle->getRegions() === $this) {
+                $bottle->setRegions(null);
+            }
+        }
 
         return $this;
     }

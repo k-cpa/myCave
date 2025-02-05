@@ -40,4 +40,11 @@ class Grapes
 
         return $this;
     }
+
+    // Pour affichage dans le CRUD admin
+    public function __toString(): string
+    {
+        return $this->name ?? '';
+    }
+
 }

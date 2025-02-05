@@ -28,10 +28,10 @@ class BottlesCrudController extends AbstractCrudController
                     'multiple' => true,
                 ])
                 ->autocomplete(),
-            IntegerField::new('image', 'image'),
-            ImageField::new('image', 'image')
+            ImageField::new('imageName', 'image')
                 ->setBasePath('uploads/images/')
                 ->setUploadDir('public/uploads/images/')
+                ->setRequired(false) // Permet de ne pas upload une nouvelle image systématiquement
         ];
     }
 }

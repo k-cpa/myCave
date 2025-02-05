@@ -16,6 +16,14 @@ class GrapesRepository extends ServiceEntityRepository
         parent::__construct($registry, Grapes::class);
     }
 
+    public function findAllSorted(): array
+    {
+        return $this->createQueryBuilder('g')
+            ->orderBy('g.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Grapes[] Returns an array of Grapes objects
 //     */

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Bottles;
 use App\Entity\Grapes;
+use App\Entity\Regions;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -23,7 +24,7 @@ class AddBottleType extends AbstractType
             ->add('name')
             ->add('description')
             ->add('year')
-            ->add('image_name', FileType::class, [
+            ->add('imageFile', FileType::class, [
                 'required' => true,
                 'mapped' => true,
                 'constraints' => [
@@ -40,6 +41,10 @@ class AddBottleType extends AbstractType
                 'multiple' => true,
                 'expanded' => false,
                 'placeholder' => 'Sélectionnez les cépages.',
+            ])
+            ->add('regions', EntityType::class, [
+                'class' => Regions::class,
+                'choice_label' => 'name',
             ])
             ->add('submit', SubmitType::class, ['label' => 'Ajouter']);
     }

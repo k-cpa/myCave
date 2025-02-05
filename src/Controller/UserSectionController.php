@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Bottles;
+use App\Entity\Cellars;
 use App\Form\AddBottleType;
 use App\Repository\GrapesRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,6 +33,17 @@ final class UserSectionController extends AbstractController{
     public function addNewBottle(Request $request, EntityManagerInterface $entityManager): Response
     {
 
+        $user = $this->getUser();
+
+        $cellar = $entityManager->getRepository(Cellars::class)->findOneBy(['user' => $user]);
+
+        if(!$cellar) {
+            $cellar = new Cellars();
+            $cellar->setUser($user);
+            $entityManager->persist($cellar);
+            $entityManager->flush();
+        }
+
         $bottle = new Bottles();
 
         $addBottleForm = $this->createForm(AddBottleType::class, $bottle);
@@ -39,13 +51,15 @@ final class UserSectionController extends AbstractController{
 
         if ($addBottleForm->isSubmitted() && $addBottleForm->isValid()) {
 
+            $bottle->setCellar($cellar);
+
             $entityManager->persist($bottle);
 
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre bouteille a été ajoutée avec succès !');
 
-            return $this->redirectToRoute('app_addBottle');
+            return $this->redirectToRoute('app_userCave');
         }
 
         return $this->render('user/addBottle.html.twig', [

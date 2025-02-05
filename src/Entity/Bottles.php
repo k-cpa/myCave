@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: BottlesRepository::class)]
+#[Vich\Uploadable]
 class Bottles
 {
     #[ORM\Id]
@@ -52,7 +53,7 @@ class Bottles
 
     // GESTION DE L'IMAGE
 
-    #[Vich\UploadableField(mapping:'images', fileNameproperty: 'imageName')]
+    #[Vich\UploadableField(mapping:'images', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
     
     #[ORM\Column(nullable: false)]
@@ -67,6 +68,10 @@ class Bottles
      */
     #[ORM\ManyToMany(targetEntity: Grapes::class)]
     private Collection $grapes;
+
+    #[ORM\ManyToOne(inversedBy: 'bottles')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Regions $regions = null;
 
     public function __construct()
     {
@@ -174,4 +179,22 @@ class Bottles
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->name; // Remplace "name" par le bon champ à afficher
+    }
+
+    public function getRegions(): ?Regions
+    {
+        return $this->regions;
+    }
+
+    public function setRegions(?Regions $regions): static
+    {
+        $this->regions = $regions;
+
+        return $this;
+    }
+
 }
