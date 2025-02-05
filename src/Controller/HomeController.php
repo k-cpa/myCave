@@ -21,7 +21,7 @@ final class HomeController extends AbstractController{
     #[Route('/all/caves', name: 'app_allCaves')]
     public function caves(): Response
     {
-        return $this->render('home/caves.html.twig', [
+        return $this->render('home/allCaves.html.twig', [
             'controller_name' => 'CaveController',
         ]);
     }

@@ -16,10 +16,10 @@ final class UserSectionController extends AbstractController{
     // TEMPLATE CAVE PERSONNELLE DE L'UTILISATEUR 
 
     #[IsGranted('ROLE_USER')]
-    #[Route('/your/cave', name: 'app_userCave')]
+    #[Route('/yourCave', name: 'app_userCave')]
     public function userCave(): Response
     {
-        return $this->render('user_cave/index.html.twig', [
+        return $this->render('user/userCave.html.twig', [
             'controller_name' => 'UserCaveController',
         ]);
     }
@@ -27,7 +27,7 @@ final class UserSectionController extends AbstractController{
     // TEMPLATE D'AJOUT DE BOUTEILLE 
     
     #[IsGranted('ROLE_USER')]
-    #[Route('/add/bottle', name: 'app_addBottle')]
+    #[Route('/addBottle', name: 'app_addBottle')]
     public function addNewBottle(Request $request, EntityManagerInterface $entityManager): Response
     {
 

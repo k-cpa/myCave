@@ -20,15 +20,15 @@
                 <ul>
                     {# Affichage pour le panel administrateur #}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <li><a href="">Gestionnaire</a></li>
+                        <li><a href="{{ path('app_admin') }}">Gestionnaire</a></li>
                     {% endif %}
                     <li><a href="{{ path('app_home') }}">Accueil</a></li>
-                    <li><a href="">Les caves</a></li>
+                    <li><a href="{{ path('app_allCaves') }}">Les caves</a></li>
                 </ul>
             </nav>
             <div class="connect_links">
                 {% if is_granted('ROLE_USER') %}
-                    <a href="{{ path('app_') }}">Ma cave</a>
+                    <a href="{{ path('app_userCave') }}">Ma cave</a>
                     <a href="{{ path('app_logout') }}">Déconnexion</a>
                 {% else %}
                     <a href="{{ path('app_login') }}">Connexion</a>
