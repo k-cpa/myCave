@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\BottlesRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -29,18 +31,14 @@ class Bottles
     #[ORM\JoinColumn(nullable: false)]
     private ?Cellars $cellar = null;
 
-    #[ORM\ManyToOne(inversedBy: 'bottles')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Grapes $grapes = null;
-
     #[ORM\Column(type: 'integer')]
-    private ?int $year = null;
-
     // Assert pour year
     #[Assert\Range(
         min: 1800, // Année minimale
         notInRangeMessage: 'L\'année doit être comprise entre {{ min }} et l\'année en cours'
     )]
+    private ?int $year = null;
+
     #[Assert\Callback]
     public function validateYear(ExecutionContextInterface $context): void
     {
@@ -52,6 +50,8 @@ class Bottles
         }
     }
 
+    // GESTION DE L'IMAGE
+
     #[Vich\UploadableField(mapping:'images', fileNameproperty: 'imageName')]
     private ?File $imageFile = null;
     
@@ -61,6 +61,17 @@ class Bottles
     // Obligatoire car bug avec symfony qui ne prend pas si on change uniquement une image
     #[ORM\Column(nullable: true)]
     private ?DateTimeImmutable $updatedAt = null;
+
+    /**
+     * @var Collection<int, Grapes>
+     */
+    #[ORM\ManyToMany(targetEntity: Grapes::class)]
+    private Collection $grapes;
+
+    public function __construct()
+    {
+        $this->grapes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,18 +114,6 @@ class Bottles
         return $this;
     }
 
-    public function getGrapes(): ?Grapes
-    {
-        return $this->grapes;
-    }
-
-    public function setGrapes(?Grapes $grapes): static
-    {
-        $this->grapes = $grapes;
-
-        return $this;
-    }
-
     public function getYear(): ?int
     {
         return $this->year;
@@ -150,5 +149,29 @@ class Bottles
     public function getImageName(): ?string
     {
         return $this->imageName;
+    }
+
+    /**
+     * @return Collection<int, Grapes>
+     */
+    public function getGrapes(): Collection
+    {
+        return $this->grapes;
+    }
+
+    public function addGrape(Grapes $grape): static
+    {
+        if (!$this->grapes->contains($grape)) {
+            $this->grapes->add($grape);
+        }
+
+        return $this;
+    }
+
+    public function removeGrape(Grapes $grape): static
+    {
+        $this->grapes->removeElement($grape);
+
+        return $this;
     }
 }

@@ -4,9 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Bottles;
 use App\Form\AddBottleType;
+use App\Repository\GrapesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -47,7 +48,7 @@ final class UserSectionController extends AbstractController{
             return $this->redirectToRoute('app_addBottle');
         }
 
-        return $this->render('addBottle.html.twig', [
+        return $this->render('user/addBottle.html.twig', [
             'addBottleForm' => $addBottleForm->createView(),
         ]);
     }

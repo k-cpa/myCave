@@ -3,10 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Bottles;
-use App\Entity\Cellars;
 use App\Entity\Grapes;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,11 +18,12 @@ class AddBottleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        
         $builder
             ->add('name')
             ->add('description')
             ->add('year')
-            ->add('image', FileType::class, [
+            ->add('image_name', FileType::class, [
                 'required' => true,
                 'mapped' => true,
                 'constraints' => [
@@ -32,13 +34,12 @@ class AddBottleType extends AbstractType
                     ])
                 ],
             ])
-            ->add('cellar', EntityType::class, [
-                'class' => Cellars::class,
-                'choice_label' => 'id',
-            ])
             ->add('grapes', EntityType::class, [
                 'class' => Grapes::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => false,
+                'placeholder' => 'Sélectionnez les cépages.',
             ])
             ->add('submit', SubmitType::class, ['label' => 'Ajouter']);
     }

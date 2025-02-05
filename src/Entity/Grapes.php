@@ -18,15 +18,10 @@ class Grapes
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    /**
-     * @var Collection<int, Bottles>
-     */
-    #[ORM\OneToMany(targetEntity: Bottles::class, mappedBy: 'grapes')]
-    private Collection $bottles;
 
     public function __construct()
     {
-        $this->bottles = new ArrayCollection();
+        //
     }
 
     public function getId(): ?int
@@ -42,36 +37,6 @@ class Grapes
     public function setName(string $name): static
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Bottles>
-     */
-    public function getBottles(): Collection
-    {
-        return $this->bottles;
-    }
-
-    public function addBottle(Bottles $bottle): static
-    {
-        if (!$this->bottles->contains($bottle)) {
-            $this->bottles->add($bottle);
-            $bottle->setGrapes($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBottle(Bottles $bottle): static
-    {
-        if ($this->bottles->removeElement($bottle)) {
-            // set the owning side to null (unless already changed)
-            if ($bottle->getGrapes() === $this) {
-                $bottle->setGrapes(null);
-            }
-        }
 
         return $this;
     }

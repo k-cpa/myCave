@@ -3,14 +3,15 @@
 {% block title %}Nouvelle bouteille{% endblock %}
 
 {% block body %}
-    {{ form_start(addFormBottle) }}
+    {{ form_start(addBottleForm) }}
 
-        {{ form_row(addFormBottle.name) }}
-        {{ form_row(addFormBottle.description) }}
-        {{ form_row(addFormBottle.year) }}
-        {{ form_row(addFormBottle.grapes) }}
-	    {{form_row(formSignIn.submit)}}
+        {{ form_row(addBottleForm.name) }}
+        {{ form_row(addBottleForm.description) }}
+        {{ form_row(addBottleForm.year) }}
+        {{ form_row(addBottleForm.grapes) }}
+        {{ form_row(addBottleForm.image_name) }}
+	    {{form_row(addBottleForm.submit)}}
 
 
-    {{ form_end(addFormBottle) }}
+    {{ form_end(addBottleForm) }}
 {% endblock %}
