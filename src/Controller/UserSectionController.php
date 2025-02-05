@@ -33,10 +33,11 @@ final class UserSectionController extends AbstractController{
     public function addNewBottle(Request $request, EntityManagerInterface $entityManager): Response
     {
 
-        $user = $this->getUser();
+        $user = $this->getUser(); // On récupère les infos du user
 
-        $cellar = $entityManager->getRepository(Cellars::class)->findOneBy(['user' => $user]);
+        $cellar = $entityManager->getRepository(Cellars::class)->findOneBy(['user' => $user]); // On récupère la cave liée à l'utilisateur
 
+        // Si aucune cave n'est liée à l'utilisateur on va en créer une
         if(!$cellar) {
             $cellar = new Cellars();
             $cellar->setUser($user);
@@ -44,8 +45,9 @@ final class UserSectionController extends AbstractController{
             $entityManager->flush();
         }
 
-        $bottle = new Bottles();
+        $bottle = new Bottles(); // On fait une nouvelle bouteille
 
+        // Gestion du form ensuite
         $addBottleForm = $this->createForm(AddBottleType::class, $bottle);
         $addBottleForm->handleRequest($request);
 
