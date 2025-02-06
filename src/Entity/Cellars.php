@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CellarsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CellarsRepository::class)]
@@ -24,6 +25,7 @@ class Cellars
      */
     #[ORM\OneToMany(targetEntity: Bottles::class, mappedBy: 'cellar', orphanRemoval: true)]
     private Collection $bottles;
+
 
     public function __construct()
     {
@@ -75,5 +77,10 @@ class Cellars
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->user; // Remplace "name" par le champ qui contient le nom du user
     }
 }

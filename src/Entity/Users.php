@@ -151,8 +151,8 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function __toString(): string
-{
-    return $this->username; // Remplace "name" par le champ qui contient le nom du user
-}
+    {
+        return $this->username; // Remplace "name" par le champ qui contient le nom du user
+    }
 
 }

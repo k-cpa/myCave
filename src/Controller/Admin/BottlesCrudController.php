@@ -20,6 +20,7 @@ class BottlesCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            AssociationField::new('cellar', 'La cave de'),
             TextField::new('name'),
             TextareaField::new('description'),
             AssociationField::new('grapes', 'Cépages')
