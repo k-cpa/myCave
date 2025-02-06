@@ -3,5 +3,17 @@
 {% block title %}Hello UnitCaveController!{% endblock %}
 
 {% block body %}
-
+    <h2>Bienvenue dans la cave de {{ cellar.user }}</h2>
+    {% for bottle in bottles %}
+        <div>
+            {{ bottle.name }}
+        </div>
+        <div>
+            <img src="{{ asset('uploads/images/' ~ bottle.imageName) }}" alt="">
+        </div>
+        <div>
+            {{ bottle.description }}
+        </div>
+            {{ bottle.year }}
+     {% endfor %}
 {% endblock %}

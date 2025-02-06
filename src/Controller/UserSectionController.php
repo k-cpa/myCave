@@ -8,6 +8,7 @@ use App\Form\AddBottleType;
 use App\Repository\GrapesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -19,10 +20,14 @@ final class UserSectionController extends AbstractController{
 
     #[IsGranted('ROLE_USER')]
     #[Route('/yourCave', name: 'app_userCave')]
-    public function userCave(): Response
+    public function userCave(EntityManagerInterface $entityManager, Security $security): Response
     {
+        $user = $security->getUser();
+        $cellar = $entityManager->getRepository(Cellars::class)->findOneBy(['user' => $user]);
+
         return $this->render('user/userCave.html.twig', [
-            'controller_name' => 'UserCaveController',
+            'cellar' => $cellar,
+            'bottles' => $cellar ? $cellar->getBottles() : [],
         ]);
     }
 

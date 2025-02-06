@@ -5,4 +5,18 @@
 {% block body %}
     <h2>Bienvenue dans votre cave {{app.user.userIdentifier}}</h2>
     <a href="{{ path('app_addBottle') }}">Ajouter une bouteille</a>
+    {% if cellar %}
+        {% for bottle in bottles %}
+        <div>
+            {{ bottle.name }}
+        </div>
+        <div>
+            <img src="{{ asset('uploads/images/' ~ bottle.imageName) }}" alt="">
+        </div>
+        <div>
+            {{ bottle.description }}
+        </div>
+            {{ bottle.year }}
+        {% endfor %}
+    {% endif %}
 {% endblock %}

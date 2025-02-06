@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Cellars;
+use App\Repository\CellarsRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -19,19 +22,26 @@ final class HomeController extends AbstractController{
 
     // TEMPLATE cave de chaque utilisateurs. Définir le format d'affichage
     #[Route('/all/caves', name: 'app_allCaves')]
-    public function caves(): Response
+    public function caves(CellarsRepository $cellarsRepository): Response
     {
+
+        $cellars = $cellarsRepository->findAll();
+
         return $this->render('home/allCaves.html.twig', [
-            'controller_name' => 'CaveController',
+            'cellars' => $cellars,
         ]);
     }
 
+
     // TEMPLATE cave sélectionnée par l'utilisateur dans allCaves
-    #[Route('/unit/cave', name: 'app_unit_cave')]
-    public function index(): Response
+    #[Route('/cave/{id}', name: 'app_unit_cave')]
+    public function viewCellar(int $id, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('unit_cave/index.html.twig', [
-            'controller_name' => 'UnitCaveController',
+        $cellar = $entityManager->getRepository(Cellars::class)->find($id);
+
+        return $this->render('home/unitCave.html.twig', [
+            'cellar' => $cellar,
+            'bottles' => $cellar->getBottles(),
         ]);
     }
 
