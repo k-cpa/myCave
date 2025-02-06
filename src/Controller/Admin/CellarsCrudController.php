@@ -23,8 +23,7 @@ class CellarsCrudController extends AbstractCrudController
     {
         return [
             AssociationField::new('user', 'Propriétaire'),
-            CollectionField::new('bottles', 'Les bouteilles')
-                ->setEntryIsComplex(false)
+            AssociationField::new('bottles', 'Nombre de bouteilles'),
         ];
     }
 

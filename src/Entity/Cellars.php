@@ -16,7 +16,7 @@ class Cellars
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToOne(inversedBy: 'cellars', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'cellars', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Users $user = null;
 
@@ -25,6 +25,12 @@ class Cellars
      */
     #[ORM\OneToMany(targetEntity: Bottles::class, mappedBy: 'cellar', orphanRemoval: true)]
     private Collection $bottles;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $created_at = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updated_at = null;
 
 
     public function __construct()
@@ -82,5 +88,29 @@ class Cellars
     public function __toString(): string
     {
         return $this->user; 
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): static
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updated_at;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updated_at): static
+    {
+        $this->updated_at = $updated_at;
+
+        return $this;
     }
 }
