@@ -79,6 +79,6 @@ class Countries
 
     public function __toString(): string
     {
-        return $this->name; // Remplace "name" par le champ qui contient le nom du user
+        return $this->name; 
     }
 }

@@ -6,6 +6,7 @@ use App\Entity\Cellars;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -22,7 +23,8 @@ class CellarsCrudController extends AbstractCrudController
     {
         return [
             AssociationField::new('user', 'Propriétaire'),
-            AssociationField::new('bottles', 'Les bouteilles'),
+            CollectionField::new('bottles', 'Les bouteilles')
+                ->setEntryIsComplex(false)
         ];
     }
 

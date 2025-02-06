@@ -81,6 +81,6 @@ class Cellars
 
     public function __toString(): string
     {
-        return $this->user; // Remplace "name" par le champ qui contient le nom du user
+        return $this->user; 
     }
 }
