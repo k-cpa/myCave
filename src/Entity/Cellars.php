@@ -36,6 +36,7 @@ class Cellars
     public function __construct()
     {
         $this->bottles = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
