@@ -1,7 +1,54 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <main class="home">
-        
+    <main class="main_home">
+        <section class="banner">
+            <div class="title_banner">
+                <h2><span>des caves</span> à portée de vins</h2>
+                <p>Votre cave, leurs découvertes.</p>
+            </div>
+            <div class="img_wrapper">
+                <img src="{{ asset('img/banner_wine.png') }}" alt="Image d'un verre à vin">
+            </div>
+        </section>
+        <section class="exploration_container">
+            <article class="explore">
+                <div class="img_wrapper">
+                    <img src="{{ asset('img/cellar_image.png') }}" alt="Image d'une rangée de bouteille dans une cave à vin">
+                </div>
+                <div class="elements">
+                    <h3>Explorez des caves à vins</h3>
+                    <p>Explorez les caves à vins de la communauté, plongez-vous dans leurs univers et inspirez-vous de leur composition et leur goût</p>
+                </div>
+            </article>
+            <article class="share">
+                <div class="img_wrapper">
+                    <img src="{{ asset('img/glasses_image.png') }}" alt="Image d'une table vue de profil sur laquelle est posée 2 bouteilles de vins et des verres">
+                </div>
+                <div class="elements">
+                    <h3>Partagez vos goûts</h3>
+                    <p>Partagez votre cave à vins avec la communauté. Ajoutez des descriptions personnalisées pour partager votre universe, vos goûts et vos envies</p>
+                </div>
+            </article>
+            <article class="give">
+                <div class="img_wrapper">
+                    <img src="{{ asset('img/hand_glass.png') }}" alt="Image d'une main tenant un verre à vin">
+                </div>
+                <div class="elements">
+                    <h3>Donnez votre avis</h3>
+                    <p>Commentez, aimez et échangez autour des caves à vin de passionnés. Découvrez de nouvelles sélections et partagez vos coups de cœur !</p>
+                </div>
+            </article>
+
+            {# Bouton d'inscription CTA #}
+                <a href="{{ path('app_signin') }}">Rejoignez-nous !</a>
+        </section>
+        <section class="contact">
+            {{ form_start(contactForm) }}
+                {{ form_row(contactForm.email) }}
+                {{ form_row(contactForm.message) }}
+                {{ form_row(contactForm.submit) }}
+            {{ form_end(contactForm) }}
+        </section>
     </main>
 {% endblock %}

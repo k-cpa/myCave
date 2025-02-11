@@ -15,10 +15,10 @@
         border-radius: 10px;
 
         .title {
-            padding-bottom: 5rem;
+            padding-bottom: 3rem;
 
             h2 {
-                font-size: 3.5em;
+                font-size: 4em;
             }
         }
 
@@ -41,10 +41,11 @@
                 }
             }
 
+            // Pour le bouton
             div:last-of-type {
                 width: 15%;
                 text-align: center;
-                background-color: #88002D;
+                background-color: var.$btnColor;
                 padding: 6px;
                 border-radius: 5px;
                 color: white;
@@ -54,12 +55,13 @@
                 cursor: pointer;
 
                 &:hover {
-                    background-color: #3E0018;   
+                    background-color: var.$btnHover;   
                 }
             }
 
             label {
                 display: block;
+                margin-bottom: .5rem;
             }
 
             input {

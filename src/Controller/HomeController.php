@@ -3,20 +3,42 @@
 namespace App\Controller;
 
 use App\Entity\Cellars;
+use App\Form\ContactType;
 use App\Repository\CellarsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class HomeController extends AbstractController{
 
     // Partie pour le main du site
     #[Route('/', name: 'app_home')]
-    public function home(): Response
+    public function contactForm(Request $request, MailerInterface $mailer): Response
     {
+
+        $contactForm = $this->createForm(ContactType::class);
+        $contactForm->handleRequest($request);
+
+        if($contactForm->isSubmitted() && $contactForm->isValid()) {
+            $data = $contactForm->getData(); // Récupération des champs du formulaire
+
+            $email = (new Email())
+                ->from('07148281344577@mailtrap.io')
+                ->to('kevcampana@gmail.com')
+                ->subject('Nouveau message de contact')
+                ->text(
+                    "Nom: {$data['name']}\n".
+                    "Email: {$data['email']}\n\n".
+                    "Message:\n{$data['message']}"
+                );
+                $mailer->send($email);
+        }
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+            'contactForm' => $contactForm->createView(),
         ]);
     }
 

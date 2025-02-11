@@ -1,0 +1,104 @@
+
+@use "../abstract/mixins";
+@use "../abstract/variables" as var;
+
+.main_home {
+    @include mixins.flex($direction: column);
+    width: 100%;
+
+    .banner {
+        @include mixins.flex;
+        width: 100%;
+    
+        .title_banner {
+            width: 60%;
+            @include mixins.flex($direction: column, $align: flex-end);
+
+            h2 {
+                text-align: end;
+                font-size: 4rem;
+                text-transform: uppercase;
+    
+                span {
+                    display: block;
+                }
+            }
+    
+            p {
+                font-size: 1.2rem;
+            }
+        }
+    
+        .img_wrapper {
+            width: 40%;
+        }
+    }
+    
+    .exploration_container {
+        @include mixins.flex($direction: column);
+        width: 80%;
+    
+        article {
+            @include mixins.flex($align: flex-start);
+            width: 100%;
+            margin-top: 5rem;
+
+            .img_wrapper {
+
+                img {
+                    object-fit: cover;
+                    width: 100%;
+                }
+            }
+
+            // Elements display généraux pour tous les articles - gestion de la singularité avec odd et even 
+            .elements {
+                gap: 1rem;
+                width: 80%;
+                
+                h3 {
+                    font-size: 2em;
+                }
+                p {
+                    width: 40%;
+                }
+            }
+
+            &:nth-child(odd) {
+                .elements {
+                    @include mixins.flex($direction: column, $align: flex-start);
+                    padding-left: 2rem;
+                }
+            }
+    
+            &:nth-child(even) {
+                flex-direction: row-reverse;
+
+                .elements {
+                    @include mixins.flex($direction: column, $align: flex-end);
+                    padding-right: 2rem;
+
+                    p {
+                        text-align: end;
+                    }
+                }
+            }
+        }
+
+        // bouton rejoingnez-nous
+        a {
+            padding: 10px 20px;
+            border: 1px solid black;
+            border-radius: 8px;
+            margin-top: 5rem;
+            color: black;
+            cursor: pointer;
+            transition: .3s ease;
+
+            &:hover {
+                background-color: var.$btnHover;
+                color: white;
+            }
+        }
+    }
+}
