@@ -1,16 +1,32 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Inscription{% endblock %}
-
+{% block header %}{% endblock %}
 {% block body %}
+<main class="login_signin">
+	<div class="element_container">
+		<div class="title">
+			<h2>Créer un compte</h2> 
+			<p>Rejoignez l'aventure MyCave</p>
+		</div>
 
- <h2 class="sign_in">Créer un compte</h2> 
+		{# formulaire d'inscription #}
+		{{form_start(formSignIn)}}
+			{{form_row(formSignIn.email)}}
+			{{form_row(formSignIn.username)}}
+			{{form_row(formSignIn.password)}}
+			{{form_row(formSignIn.submit)}}
+		{{form_end(formSignIn)}}
 
- 	{{form_start(formSignIn)}}
-	    {{form_row(formSignIn.email)}}
-	    {{form_row(formSignIn.username)}}
-	    {{form_row(formSignIn.password)}}
-	    {{form_row(formSignIn.submit)}}
-	{{form_end(formSignIn)}}
-    
+		{# Lien pour se connecter si compte existant #}
+		<div class="login_link">
+			<p>Vous avez déjà un compte ?</p>
+			<a href="{{ path('app_login') }}">Connectez-vous</a>
+		</div>
+	</div>
+	{# bg video verre de vin #}
+	<div class="bg_video">
+		<video src="{{ asset('video/wine_bg.mp4') }}" autoplay muted></video>
+	</div>
+</main>    
 {% endblock %}

@@ -23,7 +23,8 @@
                 <ul>
                     {# Affichage pour le panel administrateur #}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <li><a href="{{ path('app_admin') }}">Gestionnaire</a></li>
+                    {# target blank pour ouvrir dans new tab et noopener noreferrer pour éviter les attaques pishing (vieux post stack over flow de 2017 - utile ?) #} 
+                        <li><a href="{{ path('app_admin') }}" target="_blank" rel="noopener noreferrer">Gestionnaire</a></li>
                     {% endif %}
                     <li><a href="{{ path('app_home') }}">Accueil</a></li>
                     <li><a href="{{ path('app_allCaves') }}">Les caves</a></li>

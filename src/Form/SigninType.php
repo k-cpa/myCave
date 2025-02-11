@@ -20,11 +20,13 @@ class SigninType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class)
-            ->add('username', TextType::class)
+            ->add('username', TextType::class, [
+                'label' => "Nom d'utilisateur",
+            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Confirmez votre mot de passe'],
+                'second_options' => ['label' => 'Confirmez le mot de passe'],
                 'invalid_message' => 'Les mots de passe doivent correspondre',
                 'constraints' => [
                     new NotBlank(['message' => 'Le mot de passe est requis']),
@@ -34,7 +36,7 @@ class SigninType extends AbstractType
                     ]),
                 ],
             ])
-            -> add('submit', SubmitType::class, ['label' => 'S\'inscrire']);
+            -> add('submit', SubmitType::class, ['label' => 'Valider']);
 
 
         ;

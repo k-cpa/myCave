@@ -1,0 +1,106 @@
+@use "../abstract/mixins";
+@use "../abstract/variables" as var;
+
+.login_signin {
+    @include mixins.flex;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+
+    .element_container {
+        @include mixins.flex($direction: column);
+        background-color: white;
+        height: 98%;
+        width: 48%;
+        border-radius: 10px;
+
+        .title {
+            padding-bottom: 5rem;
+
+            h2 {
+                font-size: 3.5em;
+            }
+        }
+
+        form {
+            @include mixins.flex(column, center, center);
+            width: 100%;
+            padding: 5px;
+
+            .alert {
+                margin-bottom: 2rem;
+            }
+
+            div {
+                width: 35%;
+
+                li {
+                    margin-top: 5px;
+                    margin-bottom: 5px;
+                    color: red;
+                }
+            }
+
+            div:last-of-type {
+                width: 15%;
+                text-align: center;
+                background-color: #88002D;
+                padding: 6px;
+                border-radius: 5px;
+                color: white;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                transition: .3s ease;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #3E0018;   
+                }
+            }
+
+            label {
+                display: block;
+            }
+
+            input {
+                all: unset;
+                width: 100%;
+                height: 35px;
+                margin-bottom: 20px;
+                padding-left: 5px;
+                border-radius: 5px;
+                border: 1px solid black;
+
+                &:focus {
+                    border: 2px solid #3E0018;
+                }
+            }
+
+            button {
+                all: unset;
+                justify-self: center;
+            }
+        }
+
+        .login_link {
+            @include mixins.flex;
+            gap: 1rem;
+        }
+
+    }
+    .bg_video {
+        position: relative;
+        width: 50%;
+        height: 98%;
+
+            video {
+                position: absolute;
+                top: 60%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 45%;
+                object-fit: cover;
+            }
+    }
+
+}

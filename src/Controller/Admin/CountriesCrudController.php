@@ -17,8 +17,7 @@ class CountriesCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('name', 'pays')
+            TextField::new('name', 'Nom des pays')
         ];
     }
-
 }
