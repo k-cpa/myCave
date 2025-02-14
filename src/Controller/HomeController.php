@@ -68,6 +68,9 @@ final class HomeController extends AbstractController{
                         if($totalRatings > 0) {
                             $totalScore = array_reduce($ratings->toArray(), fn($sum, $rating) => $sum + $rating->getNotation(), 0);
                             $averageRating = $totalScore / $totalRatings;
+                            
+                            // Si entier on affiche sans virgule sinon 1 chiffre après virgule
+                            $averageRating = ($averageRating == floor($averageRating)) ? (int) $averageRating : round($averageRating, 1); 
                         }
 
             $cellarsWithBottles[] = [

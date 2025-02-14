@@ -30,13 +30,14 @@
         @include mixins.flex;
         position: relative;
         width: 80%;
-        height: 300px;
+        height: 350px;
         border-left: none;
         border-right: none;
         border-radius: 10px;
         background-color: white;
 
         &::before {
+            pointer-events: none; // Permet de cibler au hover des éléments sous le before
             position: absolute;
             border-radius: inherit;
             content: "";
@@ -61,23 +62,24 @@
             transform: translate(-50%, -50%);
             right: 0;
             overflow: hidden;
+            transition: .4s ease;
 
             &:hover {
-                animation: borderFill 1s linear forwards;
-            }
+                border-color: var.$thirdColor;
 
-            &:hover .fa-angle-up {
-                transform: translateX(40px) rotate(90deg);
-                color: var.$thirdColor;
+                &:hover .fa-angle-up {
+                    transform: translateX(50px) rotate(90deg);
+                }
             }
 
             .fa-angle-up {
+                z-index: 3;
                 transform: rotate(90deg);
                 display: block;
                 color: var.$primaryColor;
                 font-size: 2em;
                 cursor: pointer;
-                transition: .5s ease;
+                transition: transform .4s ease;
             }
         }
 
@@ -182,6 +184,11 @@
 
                 .bottle {
                     @include mixins.flex(column, center, center);
+                    transition: .5s ease;
+
+                    &:hover {
+                        transform: translateY(-90px);
+                    }
 
                     .img_wrapper {
                         width: 85%;
@@ -200,25 +207,5 @@
                 }
             }
         }
-    }
-}
-
-// Pour le bouton accès caves
-@keyframes borderFill {
-    0% {
-        transform: rotate(0deg);
-        border-color: transparent transparent transparent var.$thirdColor;
-    }
-    25% {
-        transform: rotate(90deg);
-        border-color: transparent transparent var.$thirdColor var.$thirdColor;
-    }
-    50% {
-        transform: rotate(180deg);
-        border-color: transparent var.$thirdColor var.$thirdColor var.$thirdColor;
-    }
-    100% {
-        transform: rotate(360deg);
-        border-color: var.$thirdColor var.$thirdColor var.$thirdColor var.$thirdColor;
     }
 }
