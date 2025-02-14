@@ -68,7 +68,7 @@ final class HomeController extends AbstractController{
                         if($totalRatings > 0) {
                             $totalScore = array_reduce($ratings->toArray(), fn($sum, $rating) => $sum + $rating->getNotation(), 0);
                             $averageRating = $totalScore / $totalRatings;
-                            
+
                             // Si entier on affiche sans virgule sinon 1 chiffre après virgule
                             $averageRating = ($averageRating == floor($averageRating)) ? (int) $averageRating : round($averageRating, 1); 
                         }
@@ -100,10 +100,24 @@ final class HomeController extends AbstractController{
             'user' => $user,
         ]) !== null;
 
+        // Calcul note moyenne de chaque cave
+        $ratings = $cellar->getRatings();
+        $averageRating = 0;
+        $totalRatings = count($ratings);
+
+        if($totalRatings > 0) {
+            $totalScore = array_reduce($ratings->toArray(), fn($sum, $rating) => $sum + $rating->getNotation(), 0);
+            $averageRating = $totalScore / $totalRatings;
+
+            // Si entier on affiche sans virgule sinon 1 chiffre après virgule
+            $averageRating = ($averageRating == floor($averageRating)) ? (int) $averageRating : round($averageRating, 1); 
+        }
+
         return $this->render('home/unitCave.html.twig', [
             'cellar' => $cellar,
             'bottles' => $cellar->getBottles(),
             'hasVoted' => $hasVoted,
+            'averageRating' => $averageRating,
         ]);
     }
 

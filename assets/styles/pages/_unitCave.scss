@@ -3,23 +3,55 @@
 
 .unitCave {
     @include mixins.flex(column, center, center);
+    background-color: var.$primaryColor;
+    color: white;
 
-    .rating_container {
-        @include mixins.flex;
-        margin-bottom: 1rem;
-        margin-top: 1rem;
+    .title {
+        @include mixins.flex($justify: flex-start);
+        align-self: flex-start;
+        margin-left: 3rem;
+        width: 60%;
+        margin-top: 4rem;
+        border-bottom: 1px solid black;
+        padding-bottom: 3rem;
 
-        .star  {
-            color: white;
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
+        h2 {
+            font-size: 2em;
+            border-right: 1px solid white;
+            padding-right: 2rem;
         }
 
-        .star.active  {
+        span {
             color: var.$thirdColor;
         }
-    } 
+
+
+        .averageRating {
+            margin-right: 1rem;
+            margin-left: 2rem;
+        }
+
+        .star  {
+            position: relative;
+            display: inline-flex;
+            width: 25px;
+            height: 25px;
+            svg {
+                fill: white;
+                width: 100%;
+                height: 100%;
+                pointer-events: all;
+            }
+        }
+
+        .star.filled  {
+
+            svg {
+                fill: var.$thirdColor;
+            }
+        }
+
+    }
 
     .notationForm {
         @include mixins.flex(column, center, center);

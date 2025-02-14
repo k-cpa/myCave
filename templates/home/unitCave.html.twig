@@ -6,12 +6,35 @@
 <main class="unitCave">
     <div class="title">
         <h2>La cave de <span>{{ cellar.user }}</span></h2>
-    </div>
-    <div class="description">
-        <p>{{ cellar.description }}</p>
+
+        {# AFFICHAGE NOTATION CAVE #}
+        {% if averageRating > 0 %}
+            <div class="averageRating">
+                <p>{{ averageRating }}/5</p>   
+            </div>
+        {% endif %}
+        {% if averageRating == 0 %}
+            <p>Notez cette cave !</p>
+        {% else %}
+            {% for i in 1..5 %}
+                {% if i <= averageRating %}
+                    <div class="star filled">
+                        <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                        </svg>
+                    </div>
+                {% else %}
+                    <div class="star">
+                        <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                        </svg>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </div>
 
-    {# SYSTEME DE NOTATION #}
+      {# SYSTEME DE NOTATION #}
     <article class="notationForm">
     {% if not hasVoted %}
         <p>Faites savoir ce que vous pensez de cette cave !</p>
@@ -39,12 +62,14 @@
                 <input type="hidden" id='ratingInput' name='rating' value='0'>
                 <button type='submit'>Envoyer</button>
             </form>
-    {% else %}
-    <p>Vous avez déjà donné une note !</p>
     {% endif %}
     </article>
     {# FIN DU SYSTEME DE NOTATION #}
-        
+
+    <div class="description">
+        <p>{{ cellar.description }}</p>
+    </div>
+
            {# AFFICHAGE DES BOUTEILLES  #}
     <section class="bottles_container">
         {% for bottle in bottles %}
@@ -64,5 +89,21 @@
         {% endfor %}
     </section>
 
+    {# Si on a le temps pour la feature #}
+    {# <section class="comments_container">
+        {% for comment in comments %}
+            <div class="comments">
+                <div class="user">
+                    {{ comment.user }}
+                </div>
+                <div class="content">
+                    {{ comment.content }}
+                </div>
+                <div class="date">
+                    {{ comment.date }}
+                </div>
+            </div>
+        {% endfor %}
+    </section> #}
 </main>
 {% endblock %}
