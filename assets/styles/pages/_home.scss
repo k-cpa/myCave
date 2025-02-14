@@ -31,12 +31,18 @@
     
         .img_wrapper {
             width: 40%;
+
+            &::after {
+                position: absolute;
+                
+            }
         }
     }
     
     .exploration_container {
         @include mixins.flex($direction: column);
         width: 80%;
+        margin-bottom: 6rem;
     
         article {
             @include mixins.flex($align: flex-start);
@@ -85,19 +91,131 @@
             }
         }
 
-        // bouton rejoingnez-nous
+        // bouton rejoignez-nous dupliquer pour boutons navigation -> link pages 
+        // Mettre dans reset.scss pour opti. code
         a {
-            padding: 10px 20px;
+            padding: 10px 25px;
             border: 1px solid black;
-            border-radius: 8px;
+            border-radius: 15px;
             margin-top: 5rem;
             color: black;
             cursor: pointer;
             transition: .3s ease;
 
             &:hover {
-                background-color: var.$btnHover;
+                background-color: var.$btnColor;
                 color: white;
+            }
+
+            &:focus {
+                background-color: var.$btnHover;
+            }
+        }
+    }
+
+    // Partie formulaire de contact 
+    .contact{
+        @include mixins.flex;
+        width: 100%;
+
+        .form_container {
+            @include mixins.flex(column, center, center);
+            width: 98%;
+            background-color: var.$primaryColor;
+            border-radius: 10px;
+
+            .title {
+                @include mixins.flex(column, center, center);
+                color: white;
+                text-align: center;
+                gap: 3rem;
+                margin-bottom: 4rem;
+
+
+                h3 {
+                    font-size: 2em;
+                    margin-top: 3rem;
+                }
+
+                span {
+                    display: block;
+                }
+            }
+
+            form {
+                @include mixins.flex(column, center, center);
+                width: 100%;
+                color: white;
+                gap: 2.5rem;
+                margin-bottom: 3rem;
+
+                div {
+                    width: 25%;
+                }
+
+                div:last-of-type {
+                    width: 5%;
+                    text-align: center;
+                    background-color: var.$thirdColor;
+                    padding: 6px;
+                    border-radius: 5px;
+                    color: white;
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                    transition: .3s ease;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: var.$btnColor;
+                    }
+                }
+
+                // Display message d'erreur
+                li {
+                    margin-top: 5px;
+                    margin-bottom: 5px;
+                    color: white;
+                    font-family: 'ProBold';
+                }
+
+                label {
+                    display: block;
+                    margin-bottom: 0.5rem;
+                }
+
+                input {
+                    all: unset;
+                    width: 100%;
+                    background-color: white;
+                    height: 35px;
+                    padding-left: 5px;
+                    border-radius: 5px;
+                    border: 1px solid var.$textColor;
+    
+                    &:focus {
+                        background-color: var.$secondaryColor;
+                    }
+                }
+
+                textarea {
+                    all: unset;
+                    background-color: white;
+                    border-radius: 5px;
+                    padding-left: 5px;                                                      
+                    height: 150px;
+                    width: 100%;
+
+                    &:focus {
+                        background-color: var.$secondaryColor;
+                    }
+                }
+
+                // SUBMIT BTN
+                button {
+                    all: unset;
+                }
+
+                    
             }
         }
     }

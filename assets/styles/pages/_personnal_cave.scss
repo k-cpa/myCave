@@ -1,0 +1,16 @@
+@use "../abstract/mixins";
+@use "../abstract/variables" as var;
+
+.pers_cave {
+    @include mixins.flex(column, center, center);
+
+    .img_wrapper {
+        border: 1px solid var.$secondaryColor;
+        border-radius: 10px;
+
+        img {
+            border-radius: inherit;
+            object-fit: cover;
+        }
+    }
+}

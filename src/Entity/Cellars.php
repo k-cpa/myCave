@@ -32,11 +32,21 @@ class Cellars
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updated_at = null;
 
+    /**
+     * @var Collection<int, Ratings>
+     */
+    #[ORM\OneToMany(targetEntity: Ratings::class, mappedBy: 'cellar', orphanRemoval: true)]
+    private Collection $ratings;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
+
 
     public function __construct()
     {
         $this->bottles = new ArrayCollection();
         $this->created_at = new \DateTimeImmutable();
+        $this->ratings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,6 +121,48 @@ class Cellars
     public function setUpdatedAt(?\DateTimeInterface $updated_at): static
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ratings>
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Ratings $rating): static
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings->add($rating);
+            $rating->setCellar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Ratings $rating): static
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getCellar() === $this) {
+                $rating->setCellar(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }

@@ -14,11 +14,27 @@
         width: 48%;
         border-radius: 10px;
 
+        // link inscription/login/récupération
+        a {
+            color: var.$textSecondaryColor;
+            text-decoration: underline;
+            transition: .3s ease;
+
+            &:hover {
+                color: var.$primaryColor;
+            }
+        }
+
         .title {
+            @include mixins.flex(column, center, flex-start);
             padding-bottom: 3rem;
 
             h2 {
-                font-size: 4em;
+                font-size: 3em;
+            }
+
+            p {
+                padding-left: 5px; // Bidouille bidouille alignement h2
             }
         }
 
@@ -71,11 +87,16 @@
                 margin-bottom: 20px;
                 padding-left: 5px;
                 border-radius: 5px;
-                border: 1px solid black;
+                border: 1px solid var.$textColor;
 
                 &:focus {
                     border: 2px solid #3E0018;
                 }
+            }
+
+            a {
+                display: block;
+                margin-top: -15px;
             }
 
             button {
@@ -92,11 +113,24 @@
     }
     .bg_video {
         position: relative;
+        z-index: 1;
         width: 50%;
         height: 98%;
 
+        &::after {
+            position: absolute;
+            z-index: 2;
+            content: "";
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0,0,0,.3) 45%, rgba(0,0,0,.5) 50%);
+        }
+
             video {
                 position: absolute;
+                z-index: 1;
                 top: 60%;
                 left: 50%;
                 transform: translate(-50%, -50%);

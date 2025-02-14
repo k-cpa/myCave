@@ -22,6 +22,32 @@ document.addEventListener('DOMContentLoaded', () => {
             renderSelectedChoices: 'always',
         });
     }
-})
+});
 
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+// Lors que le DOM est entièrement chargé 
+document.addEventListener('DOMContentLoaded', () => {
+   const ratingContainer = document.querySelector('.rating_container');
+
+   if (ratingContainer) {
+    ratingContainer.addEventListener('click', (event) => {
+
+        // Vérifie si élément cliqué est une étoile
+            if(event.target && event.target.matches('.star')) {
+                const clickedStar = event.target;
+                const stars = Array.from(document.querySelectorAll('.rating .star'));
+    
+                stars.forEach((star, index) => {
+                    // Ajoute ou enlève classe active en fonction de ce que l'utilisateur sélectionne
+                    index <= stars.indexOf(clickedStar) ? star.classList.add('active') : star.classList.remove('active');
+                });
+    
+                // Met à jour valeur input hidden
+                document.getElementById('ratingInput').value = stars.indexOf(clickedStar) + 1;
+            };
+       });
+   };
+});
+
+
+
+

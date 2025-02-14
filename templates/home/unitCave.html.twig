@@ -3,7 +3,40 @@
 {% block title %}Les caves{% endblock %}
 
 {% block body %}
+<main class="unitCave">
     <h2>Bienvenue dans la cave de {{ cellar.user }}</h2>
+    <article class="notationForm">
+    {% if not hasVoted %}
+        <p>Faites savoir ce que vous pensez de cette cave !</p>
+            <form method='POST' action="{{ path('submit_rating', {id: cellar.id}) }}">
+                <div class="rating_container">
+                    <div class="rating">
+                    <div class="star">
+                        <i class="fa fa-star" data-value="1"></i>
+                    </div>
+                    <div class="star">
+                        <i class="fa fa-star" data-value="2"></i>
+                    </div>
+                    <div class="star">
+                        <i class="fa fa-star" data-value="3"></i>
+                    </div>
+                    <div class="star">
+                        <i class="fa fa-star" data-value="4"></i>
+                    </div>
+                    <div class="star">
+                        <i class="fa fa-star" data-value="5"></i>
+                    </div>
+                    </div>
+                </div>
+                {# Champ caché pour la note #}
+                <input type="hidden" id='ratingInput' name='rating' value='0'>
+                <button type='submit'>Envoyer</button>
+            </form>
+    {% else %}
+    <p>Vous avez déjà donné une note !</p>
+    {% endif %}
+    </article>
+        
     {% for bottle in bottles %}
         <div>
             {{ bottle.name }}
@@ -16,4 +49,5 @@
         </div>
             {{ bottle.year }}
      {% endfor %}
+</main>
 {% endblock %}

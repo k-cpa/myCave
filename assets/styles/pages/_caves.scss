@@ -1,0 +1,224 @@
+@use "../abstract/mixins";
+@use "../abstract/variables" as var;
+
+.caves {
+    @include mixins.flex(column, center, center);
+    gap: 6rem;
+    background-color: var.$primaryColor;
+
+    .title {
+        margin-top: 3rem;
+        width: 75%;
+        @include mixins.flex(column, flex-start, flex-start);
+        text-align: left;
+        color: white;
+        gap: 1rem;
+
+        h2 {
+            font-size: 3em;
+            color: var.$thirdColor;
+        }
+
+        span {
+            font-family: "ProBold";
+            font-size: 1.2em;
+            color: var.$thirdColor;
+        }
+    }
+
+    .cellars_container {
+        @include mixins.flex;
+        position: relative;
+        width: 80%;
+        height: 300px;
+        border-left: none;
+        border-right: none;
+        border-radius: 10px;
+        background-color: white;
+
+        &::before {
+            position: absolute;
+            border-radius: inherit;
+            content: "";
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            background: linear-gradient(90deg, rgba(255,255,255,0) 70%, rgba(255,255,255,1) 100%);
+        }
+
+        .visit_link {
+            @include mixins.flex;
+            z-index: 3;
+            position: absolute;
+            border-radius: 50%;
+            width: 35px;
+            padding: 5px;
+            border: 3px solid var.$primaryColor;
+            height: 35px;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            right: 0;
+            overflow: hidden;
+
+            &:hover {
+                animation: borderFill 1s linear forwards;
+            }
+
+            &:hover .fa-angle-up {
+                transform: translateX(40px) rotate(90deg);
+                color: var.$thirdColor;
+            }
+
+            .fa-angle-up {
+                transform: rotate(90deg);
+                display: block;
+                color: var.$primaryColor;
+                font-size: 2em;
+                cursor: pointer;
+                transition: .5s ease;
+            }
+        }
+
+        
+        .cellar_firstColumn {
+            position: relative;
+            @include mixins.flex(column, center, center);
+            width: 40%;
+            height: 80%;
+            z-index: 2;
+
+            &::after {
+                position: absolute;
+                content: "";
+                z-index: 1;
+                width: 100%;
+                height: 85%;
+                top: 7.5%;
+                left: 45px;
+                border-right: 1px solid var.$primaryColor;
+            }
+
+            .name_ratings {
+                @include mixins.flex;
+                width: 100%;
+                height: 30%;
+
+                .name, .rating_box {
+                    @include mixins.flex;
+                    width: 50%;
+                    height: 50px;
+                    border-left: none;
+                    font-family: 'proBold';
+
+                    .stars {
+                        @include mixins.flex;
+                        border: 1px solid var.$thirdColor;
+                        padding: 10px 15px;
+                        border-radius: 10px;
+
+                        .averageRating {
+                            margin-right: 1rem;
+                        }
+
+                        .star  {
+                            position: relative;
+                            display: inline-flex;
+                            width: 25px;
+                            height: 25px;
+
+                            svg {
+                                fill: var.$thirdColor;
+                                width: 100%;
+                                height: 100%;
+                                pointer-events: all;
+                            }
+                        }
+    
+                        .star.filled  {
+
+                            svg {
+                                fill: var.$primaryColor;
+                            }
+                        }
+                    } 
+                }
+            }
+
+            .description {
+                @include mixins.flex;
+                width: 80%;
+                height: 70%;
+                padding: 20px;
+            }
+        }
+
+        .cellar_secondColumn {
+            @include mixins.flex(column, flex-start, center);
+            width: 60%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+
+            .titre {
+                position: absolute;
+                top: 50px;
+                left: 80px;
+                width: 100%;
+                height: 100%;
+                font-size: 1.1em;
+            }
+
+            .inlineBottles {
+                @include mixins.flex(row, flex-start, center);
+                width: 100%;
+                z-index: 1;
+                position: absolute;
+                top: 40%;
+                left: 10%;
+                width: 100%;
+                height: 100%;
+
+                .bottle {
+                    @include mixins.flex(column, center, center);
+
+                    .img_wrapper {
+                        width: 85%;
+                        margin-top: .5rem;
+                        border: 1px solid var.$thirdColor;
+                        border-radius: 10px;
+
+                        img {
+                            width: 100%;
+                            padding-top: .2rem;
+                            object-fit: cover;
+                            border-radius: inherit;
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Pour le bouton accès caves
+@keyframes borderFill {
+    0% {
+        transform: rotate(0deg);
+        border-color: transparent transparent transparent var.$thirdColor;
+    }
+    25% {
+        transform: rotate(90deg);
+        border-color: transparent transparent var.$thirdColor var.$thirdColor;
+    }
+    50% {
+        transform: rotate(180deg);
+        border-color: transparent var.$thirdColor var.$thirdColor var.$thirdColor;
+    }
+    100% {
+        transform: rotate(360deg);
+        border-color: var.$thirdColor var.$thirdColor var.$thirdColor var.$thirdColor;
+    }
+}

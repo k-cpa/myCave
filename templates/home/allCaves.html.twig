@@ -3,13 +3,78 @@
 {% block title %}Les caves{% endblock %}
 
 {% block body %}
-    <h2>Toutes les caves</h2>
-    {% for cellar in cellars %}
+<main class="caves">
+    <div class="title">
+        <h2>Nos cavistes</h2>
+        <p>Découvrez l'univers de tous les cavistes <span>MyCave</span></p>
+    </div>
+    {% for cellarWithBottles in cellarsWithBottles %}
         <div class="cellars_container">
-            <div class="cellar_line">
-                <p>La cave de {{ cellar.user }}</p>
-                <a href="{{ path('app_unit_cave', {id: cellar.id}) }}">Visitez la cave</a>
+
+        {# Lien pour entrer dans la cave - absolute #}
+            <div class="visit_link doors">
+                <a href="{{ path('app_unit_cave', {id: cellarWithBottles.cellar.id}) }}"><i class="fa-solid fa-angle-up"></i></a>
+            </div>
+            <div class="cellar_firstColumn">
+                <div class="name_ratings">
+                    <div class="name">
+                        <p>{{ cellarWithBottles.cellar.user }}</p>
+                    </div>
+                    <div class="rating_box">
+                        <div class="stars">
+                            
+                            {% if cellarWithBottles.averageRating > 0 %}
+                                <div class="averageRating">
+                                    <p>{{ cellarWithBottles.averageRating }}/5</p>   
+                                </div>
+                            {% endif %}
+                            {% if cellarWithBottles.averageRating == 0 %}
+                                <p>Notez cette cave !</p>
+                            {% else %}
+                                {% for i in 1..5 %}
+                                    {% if i <= cellarWithBottles.averageRating %}
+                                        <div class="star filled">
+                                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                            </svg>
+                                        </div>
+                                    {% else %}
+                                        <div class="star">
+                                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                            </svg>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        {# Ajouter une fois la table ratings faite #}
+                        {# <div class="ratings_count">
+                            <p>{{ ratingsCount }} évaluation{{ ratingsCount > 1 ? 's' : '' }}</p>
+                        </div> #}
+                    </div>
+                </div>
+                <div class="description">
+                    <p>{{ cellarWithBottles.cellar.description }}</p>
+                </div> 
+            </div>
+            <div class="cellar_secondColumn">
+                <div class="titre">
+                    <h4>Aperçu</h4>
+                </div>
+                <div class="inlineBottles">
+                    {% for bottle in cellarWithBottles.bottles %}
+                        <div class="bottle">
+                            {{ bottle.name }}
+                            <div class="img_wrapper">
+                                <img src="{{ asset('uploads/images//' ~ bottle.imageName) }}" alt="Image de bouteille de vin">                        
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     {% endfor %}
+</main>
+
 {% endblock %}

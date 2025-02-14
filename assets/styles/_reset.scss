@@ -1,6 +1,15 @@
+@use "abstract/mixins";
+@use "abstract/variables" as var;
+
 * {
     margin: 0;
     padding: 0;
     text-decoration: none;
     list-style: none;
 }
+
+body {
+    color: var.$textColor
+}
+
+

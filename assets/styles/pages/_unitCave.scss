@@ -1,0 +1,51 @@
+@use "../abstract/mixins";
+@use "../abstract/variables" as var;
+
+.unitCave {
+    @include mixins.flex(column, center, center);
+
+    .rating_container {
+        @include mixins.flex;
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+
+        .star  {
+            color: white;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+        }
+
+        .star.active  {
+            color: var.$thirdColor;
+        }
+    } 
+
+    .notationForm {
+        @include mixins.flex(column, center, center);
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        background-color: var.$primaryColor;
+        border-radius: 5px;
+        padding: 25px;
+        color: white;
+
+        .rating {
+            @include mixins.flex;
+        }
+
+        button {
+            all: unset;
+            cursor: pointer;
+            padding: 4px;
+            background-color: var.$btnColor;
+            color: white;
+            transition: .3s ease;
+            border-radius: 5px;
+
+            &:hover {
+                background-color: var.$thirdColor;
+            }
+        }
+    }
+}

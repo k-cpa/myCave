@@ -3,6 +3,7 @@
 {% block title %}Ma cave personnelle{% endblock %}
 
 {% block body %}
+<main class="pers_cave">
     <h2>Bienvenue dans votre cave {{app.user.userIdentifier}}</h2>
     <a href="{{ path('app_addBottle') }}">Ajouter une bouteille</a>
     {% if cellar %}
@@ -10,7 +11,7 @@
         <div>
             {{ bottle.name }}
         </div>
-        <div>
+        <div class="img_wrapper">
             <img src="{{ asset('uploads/images/' ~ bottle.imageName) }}" alt="">
         </div>
         <div>
@@ -19,4 +20,5 @@
             {{ bottle.year }}
         {% endfor %}
     {% endif %}
+</main>
 {% endblock %}
