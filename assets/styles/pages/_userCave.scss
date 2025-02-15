@@ -1,0 +1,67 @@
+@use "../abstract/mixins";
+@use "../abstract/variables" as var;
+
+// IDENTIQUE A UNIT CAVE
+// GESTION DES COULEURS POUR LA PAGE CAVE DE L'UTILISATEUR / SEULE MODIF DISTINCTIVE
+
+.yourCave {
+    background-color: var.$secondaryColor!important;
+
+ 
+
+    .title {
+        border-color: var.$primaryColor!important;
+    }
+
+    span {
+        color: var.$primaryColor!important;
+    }
+
+    h2 {
+        border-color: var.$primaryColor!important;
+    }
+
+    .star.filled  {
+
+        svg {
+            fill: var.$primaryColor!important;
+        }
+    }
+
+    .bottles_container {
+        position: relative;
+        padding-top: 5rem;
+
+        .add_wrapper {
+            position: absolute;
+            top: 10px;
+            left: -50px;
+
+            &:hover a {
+                background-color: var.$primaryColor;
+            }
+
+            a {
+                border-radius: 10px;
+                padding: 10px 15px;
+                border: 1px solid var.$primaryColor;
+                color: white;
+                transition: .3s ease;
+            }
+        }
+    }
+
+    .bottle_description {
+        border-color: var.$primaryColor!important;
+
+        h3 {
+            color: var.$primaryColor!important;
+        }
+
+        button {
+            color: var.$primaryColor!important;
+        }
+    }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////

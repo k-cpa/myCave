@@ -48,6 +48,24 @@ document.addEventListener('DOMContentLoaded', () => {
    };
 });
 
+// Gestion affichage popin page unitCave
+document.querySelectorAll('.bottle_description').forEach(description => {
+    description.addEventListener('click', () => {
+        let textElement = description.querySelector('.text');
+        let fullText = textElement.getAttribute('data-full');
+
+        if (textElement.textContent.includes("...")) {
+            textElement.textContent = fullText; // Affiche le texte entier
+            description.querySelector('.textFull_btn').textContent = "Lire moins"; // Change le texte du bouton
+
+        } else {
+            textElement.textContent = fullText.substring(0, 100) + "..."; // Re-tronque
+            description.querySelector('.textFull_btn').textContent = "Lire plus"; // Change le texte du bouton
+        }
+    });
+});
+
+
 
 
 

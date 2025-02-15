@@ -41,7 +41,11 @@
             </article>
 
             {# Bouton d'inscription CTA #}
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('app_allCaves') }}">Venez voir les caves !</a>
+            {% else %}
                 <a href="{{ path('app_signin') }}">Rejoignez-nous !</a>
+            {% endif %}
         </section>
         <section class="contact">
             <div class="form_container">

@@ -5,19 +5,20 @@
     @include mixins.flex(column, center, center);
     background-color: var.$primaryColor;
     color: white;
+    min-height: 100vh;
 
     .title {
         @include mixins.flex($justify: flex-start);
         align-self: flex-start;
-        margin-left: 3rem;
         width: 60%;
+        margin-left: 3rem;
         margin-top: 4rem;
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid var.$thirdColor;
         padding-bottom: 3rem;
 
         h2 {
             font-size: 2em;
-            border-right: 1px solid white;
+            border-right: 1px solid var.$thirdColor;
             padding-right: 2rem;
         }
 
@@ -50,7 +51,6 @@
                 fill: var.$thirdColor;
             }
         }
-
     }
 
     .notationForm {
@@ -80,4 +80,99 @@
             }
         }
     }
+
+    // Description de la cave
+    .description {
+        @include mixins.flex;
+        margin: 3rem;
+        align-self: flex-start;
+        width: 50%;
+        height: 50%;
+    }
+
+    // Partie bouteilles
+
+    .bottles_container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        width: 80%;
+        align-items: flex-start;
+        margin-top: 3rem;
+        column-gap: 10rem;
+
+        .bottles {
+            @include mixins.flex(column, center, center);
+            width: 100%;
+
+            &:last-of-type {  
+                margin-right: auto;
+                align-self: flex-start;
+            }
+
+            div:not(:nth-child(2)) {
+                margin-bottom: 1rem;
+            }
+
+             .bottle_description {
+                position: relative;
+                cursor: pointer;
+                transition: .3s ease;
+                min-height: 300px;
+
+                &:hover {
+                    background-color: rgba(255, 255, 255, .05);
+                }
+
+                // Pour gérer le display + min-height sur parent
+                .border_wrapper {
+                    border: 1px solid var.$thirdColor;
+                    padding: 5px;
+                    border-radius: 10px;
+                }
+
+                .text {
+                    transition: max-height .3s ease;
+                    width: 95%;
+                }
+                    
+                button {
+                    all: unset;
+                    padding-right: 10px;
+                    color: var.$thirdColor;
+                    cursor: pointer;
+                    transition: .3s ease;
+
+                    &:hover {
+                        color: var.$secondaryColor;
+                    }
+                }
+                // GESTION POPIN AFFICHAGE TEXTE COMPLET
+             }
+
+            .bottle_name, .bottle_year, .bottle_description {
+                width: 100%;
+                text-align: left;
+
+                h3 {
+                    color: var.$thirdColor;
+                    font-size: 1em;
+                    font-family: "ProBold";
+                    margin-bottom: .2rem;
+                }
+            }
+
+            .img_wrapper {
+                @include mixins.flex;
+                border-radius: 10px;
+                width: 100%;
+
+                img {
+                    width: 100%;
+                    object-fit: cover;
+                    border-radius: inherit;
+                }
+            }
+        } 
+    }
+
 }

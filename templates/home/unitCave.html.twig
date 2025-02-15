@@ -14,7 +14,7 @@
             </div>
         {% endif %}
         {% if averageRating == 0 %}
-            <p>Notez cette cave !</p>
+            <p>Aucune note pour le moment !</p>
         {% else %}
             {% for i in 1..5 %}
                 {% if i <= averageRating %}
@@ -35,55 +35,59 @@
     </div>
 
       {# SYSTEME DE NOTATION #}
-    <article class="notationForm">
     {% if not hasVoted %}
-        <p>Faites savoir ce que vous pensez de cette cave !</p>
-            <form method='POST' action="{{ path('submit_rating', {id: cellar.id}) }}">
-                <div class="rating_container">
-                    <div class="rating">
-                    <div class="star">
-                        <i class="fa fa-star" data-value="1"></i>
+        <article class="notationForm">
+            <p>Faites savoir ce que vous pensez de cette cave !</p>
+                <form method='POST' action="{{ path('submit_rating', {id: cellar.id}) }}">
+                    <div class="rating_container">
+                        <div class="rating">
+                        <div class="star">
+                            <i class="fa fa-star" data-value="1"></i>
+                        </div>
+                        <div class="star">
+                            <i class="fa fa-star" data-value="2"></i>
+                        </div>
+                        <div class="star">
+                            <i class="fa fa-star" data-value="3"></i>
+                        </div>
+                        <div class="star">
+                            <i class="fa fa-star" data-value="4"></i>
+                        </div>
+                        <div class="star">
+                            <i class="fa fa-star" data-value="5"></i>
+                        </div>
+                        </div>
                     </div>
-                    <div class="star">
-                        <i class="fa fa-star" data-value="2"></i>
-                    </div>
-                    <div class="star">
-                        <i class="fa fa-star" data-value="3"></i>
-                    </div>
-                    <div class="star">
-                        <i class="fa fa-star" data-value="4"></i>
-                    </div>
-                    <div class="star">
-                        <i class="fa fa-star" data-value="5"></i>
-                    </div>
-                    </div>
-                </div>
-                {# Champ caché pour la note #}
-                <input type="hidden" id='ratingInput' name='rating' value='0'>
-                <button type='submit'>Envoyer</button>
-            </form>
+                    {# Champ caché pour la note #}
+                    <input type="hidden" id='ratingInput' name='rating' value='0'>
+                    <button type='submit'>Envoyer</button>
+                </form>
+        </article>
     {% endif %}
-    </article>
     {# FIN DU SYSTEME DE NOTATION #}
 
     <div class="description">
         <p>{{ cellar.description }}</p>
     </div>
-
            {# AFFICHAGE DES BOUTEILLES  #}
     <section class="bottles_container">
         {% for bottle in bottles %}
             <div class="bottles">
-                <div>
-                    {{ bottle.name }}
-                </div>
-                <div>
+                <div class="img_wrapper">
                     <img src="{{ asset('uploads/images/' ~ bottle.imageName) }}" alt="">
                 </div>
-                <div>
-                    {{ bottle.description }}
+                <div class="bottle_name">
+                    {{ bottle.name }}
                 </div>
+                <div class="bottle_year">
                     {{ bottle.year }}
+                </div>                
+                <div class="bottle_description">
+                    <div class="border_wrapper">
+                        <h3>Mots du caviste</h3>
+                        <p class="text" data-full="{{ bottle.description }}">{{ bottle.description|length > 100 ? bottle.description|slice(0, 100) ~ '...': bottle.description }} </p>
+                        <button class="textFull_btn">Lire plus</button>
+                    </div>    
                 </div>
             </div>
         {% endfor %}
