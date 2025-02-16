@@ -14,7 +14,9 @@
             </div>
         {% endif %}
         {% if averageRating == 0 %}
-            <p>Aucune note pour le moment !</p>
+            <div class="averageRating">
+                <p>Aucune note pour le moment !</p>        
+            </div>
         {% else %}
             {% for i in 1..5 %}
                 {% if i <= averageRating %}
