@@ -1,18 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Nouvelle bouteille{% endblock %}
-
+{% block header %}{% endblock %}
 {% block body %}
-    {{ form_start(addBottleForm) }}
+<main class="form_page">
+    <article class="form_page_container">
+        {{ form_start(addBottleForm) }}
 
-        {{ form_row(addBottleForm.name) }}
-        {{ form_row(addBottleForm.description) }}
-        {{ form_row(addBottleForm.year) }}
-        {{ form_row(addBottleForm.grapes) }}
-        {{ form_row(addBottleForm.regions) }}
-        {{ form_row(addBottleForm.imageFile) }}
-	    {{form_row(addBottleForm.submit)}}
+            {{ form_row(addBottleForm.name) }}
+            {{ form_row(addBottleForm.description) }}
+            {{ form_row(addBottleForm.year) }}
+            {{ form_row(addBottleForm.grapes) }}
+            {{ form_row(addBottleForm.regions) }}
+            <div class="custom_inputFile">
+                {{ form_widget(addBottleForm.imageFile, {'attr': {'id': 'imageFile', 'class': 'hidden_inputFile'}})}}
+                <label for="imageFile" class="upload_btn">Parcourir</label>
+            </div>
+            <span id="file_name">Aucune image sélectionnée</span>
+            {# Faire une condition if pour affichage uniquement si une image est téléchargée #}
+            <img id="img_preview" src="" alt="Aperçu de l'image téléchargée">
+            {{form_row(addBottleForm.submit)}}
         
-    {{ form_end(addBottleForm) }}
+        {{ form_end(addBottleForm) }}   
+    </article>
+
+
+</main>
 
 {% endblock %}
