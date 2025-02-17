@@ -23,6 +23,7 @@ class AddBottleType extends AbstractType
             ->add('description')
             ->add('year')
             ->add('imageFile', FileType::class, [
+                'label' => 'Parcourir',
                 'attr' => ['class' => 'hidden_inputFile'],
                 'required' => true,
                 'mapped' => true,
@@ -46,7 +47,7 @@ class AddBottleType extends AbstractType
                 'class' => Regions::class,
                 'choice_label' => 'name',
             ])
-            ->add('submit', SubmitType::class, ['label' => 'Ajouter']);
+            ->add('submit', SubmitType::class, ['label' => 'Ajouter à ma cave']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

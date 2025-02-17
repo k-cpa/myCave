@@ -4,6 +4,10 @@
 {% block header %}{% endblock %}
 {% block body %}
 <main class="form_page">
+    <div class="title">
+        <h2>Ajouter une bouteille à votre cave</h2>
+        <a href="{{ path('app_home') }}">Retour</a>
+    </div>
     <article class="form_page_container">
         {{ form_start(addBottleForm) }}
 
@@ -11,14 +15,26 @@
             {{ form_row(addBottleForm.description) }}
             {{ form_row(addBottleForm.year) }}
             {{ form_row(addBottleForm.grapes) }}
-            {{ form_row(addBottleForm.regions) }}
-            <div class="custom_inputFile">
-                {{ form_widget(addBottleForm.imageFile, {'attr': {'id': 'imageFile', 'class': 'hidden_inputFile'}})}}
-                <label for="imageFile" class="upload_btn">Parcourir</label>
+            <div class="regions_chevron">
+                {{ form_row(addBottleForm.regions) }}
+                <i class="fa-solid fa-chevron-down"></i>
             </div>
-            <span id="file_name">Aucune image sélectionnée</span>
+            <div class="image_realLabel">
+                <h4>Ajouter une bouteille</h4>
+                <p>Nous conseillons une image au format portrait</p>
+            </div>
+            <div class="custom_inputFile">
+                <div class="img_wrapper">
+                    {%  %}
+                    <img id="img_preview" src="" alt="Aperçu de l'image téléchargée">
+                </div>
+                <div class="input_container">
+                    {{ form_widget(addBottleForm.imageFile, {'attr': {'id': 'imageFile', 'class': 'hidden_inputFile'}})}}
+                    <label for="imageFile" class="upload_btn">Parcourir</label>
+                </div>
+
+            </div>
             {# Faire une condition if pour affichage uniquement si une image est téléchargée #}
-            <img id="img_preview" src="" alt="Aperçu de l'image téléchargée">
             {{form_row(addBottleForm.submit)}}
         
         {{ form_end(addBottleForm) }}   
