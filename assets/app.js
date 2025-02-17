@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
    };
 });
 
-// Gestion affichage popin page unitCave
+// Gestion affichage fullText page unitCave
 document.querySelectorAll('.bottle_description').forEach(description => {
     description.addEventListener('click', () => {
         let textElement = description.querySelector('.text');

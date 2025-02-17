@@ -75,7 +75,13 @@
 
             .rating {
                 @include mixins.flex;
+                z-index: 999;
+                gap: .5rem;
                 width: 100%;
+
+                .star.active {
+                    color: var.$thirdColor;
+                }
             }
 
             button {

@@ -40,9 +40,10 @@
     {% endblock %}
     <body>
         {% block body %}{% endblock %}
-                {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
+            {% block javascripts %}
+                {{ encore_entry_script_tags('app') }}
+                {% block importmap %}{{ importmap('app') }}
+            {% endblock %}
         {% endblock %}
     </body>
 </html>
