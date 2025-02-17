@@ -2,7 +2,7 @@
 @use "../abstract/variables" as var;
 
 .unitCave {
-    @include mixins.flex(column, center, center);
+    @include mixins.flex(column, flex-start, center);
     background-color: var.$primaryColor;
     color: white;
     min-height: 100vh;
@@ -25,7 +25,6 @@
         span {
             color: var.$thirdColor;
         }
-
 
         .averageRating {
             margin-right: 1rem;
@@ -53,32 +52,49 @@
         }
     }
 
-    .notationForm {
-        @include mixins.flex(column, center, center);
+    .notationForm_container {
+        @include mixins.flex($justify: flex-start);
         margin-top: 1rem;
         margin-bottom: 1rem;
         background-color: var.$primaryColor;
-        border-radius: 5px;
+        width: 100%;
         padding: 25px;
         color: white;
 
-        .rating {
-            @include mixins.flex;
+        // Le form plus le h4
+        .notationForm { 
+            @include mixins.flex(column, center, center);
+            gap: .5rem;
+            margin-left: 3rem;
         }
 
-        button {
-            all: unset;
-            cursor: pointer;
-            padding: 4px;
-            background-color: var.$btnColor;
-            color: white;
-            transition: .3s ease;
-            border-radius: 5px;
+        .rating_container {
+            @include mixins.flex;
+            gap: 1.5rem;
+            width: 100%;
 
-            &:hover {
-                background-color: var.$thirdColor;
+            .rating {
+                @include mixins.flex;
+                width: 100%;
+            }
+
+            button {
+                all: unset;
+                cursor: pointer;
+                padding: 4px;
+                background-color: var.$btnColor;
+                color: white;
+                transition: .3s ease;
+                border-radius: 5px;
+    
+                &:hover {
+                    background-color: var.$thirdColor;
+                }
             }
         }
+        
+
+        
     }
 
     // Description de la cave

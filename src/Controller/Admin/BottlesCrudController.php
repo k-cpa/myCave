@@ -23,12 +23,19 @@ class BottlesCrudController extends AbstractCrudController
             AssociationField::new('cellar', 'Propriétaire'),
             TextField::new('name', 'Nom de la bouteille'),
             TextareaField::new('description', 'Description'),
+            IntegerField::new('year', 'Année'),
             AssociationField::new('grapes', 'Cépages')
                 ->setFormTypeOptions([
                     'by_reference' => false,
                     'multiple' => true,
                 ])
                 ->autocomplete(),
+            AssociationField::new('regions', 'Région')
+                ->setFormTypeOptions([
+                    'choice_label' => 'name',
+                    'by_reference' => false,
+                    'multiple' => false,
+                ]),
             ImageField::new('imageName', 'image')
                 ->setBasePath('uploads/images/')
                 ->setUploadDir('public/uploads/images/')

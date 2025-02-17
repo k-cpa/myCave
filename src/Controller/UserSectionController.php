@@ -5,14 +5,15 @@ namespace App\Controller;
 use App\Entity\Bottles;
 use App\Entity\Cellars;
 use App\Form\AddBottleType;
-use App\Repository\GrapesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Security\Http\RememberMe\ResponseListener;
 
 final class UserSectionController extends AbstractController{
 
@@ -20,23 +21,26 @@ final class UserSectionController extends AbstractController{
 
     #[IsGranted('ROLE_USER')]
     #[Route('/yourCave', name: 'app_userCave')]
-    public function userCave(EntityManagerInterface $entityManager, Security $security): Response
+    public function showCellar(EntityManagerInterface $entityManager, Security $security): Response
     {
-        $user = $security->getUser();
+        $user = $security->getUser(); // Old school -> Mieux maintenant ? 
         $cellar = $entityManager->getRepository(Cellars::class)->findOneBy(['user' => $user]);
-
-      // Calcul note moyenne de chaque cave
-      $ratings = $cellar->getRatings();
-      $averageRating = 0;
-      $totalRatings = count($ratings);
-
-      if($totalRatings > 0) {
-          $totalScore = array_reduce($ratings->toArray(), fn($sum, $rating) => $sum + $rating->getNotation(), 0);
-          $averageRating = $totalScore / $totalRatings;
-
-          // Si entier on affiche sans virgule sinon 1 chiffre après virgule
-          $averageRating = ($averageRating == floor($averageRating)) ? (int) $averageRating : round($averageRating, 1); 
-      }
+        $averageRating = null; // Pour afficher la page lorsque le user n'a pas encore de cave
+                
+        // Calcul note moyenne de chaque cave
+        if($cellar !== null && $cellar->getRatings() !== null) {
+            $ratings = $cellar->getRatings();
+            $averageRating = 0;
+            $totalRatings = count($ratings);
+    
+            if($totalRatings > 0) {
+                $totalScore = array_reduce($ratings->toArray(), fn($sum, $rating) => $sum + $rating->getNotation(), 0);
+                $averageRating = $totalScore / $totalRatings;
+    
+                // Si entier on affiche sans virgule sinon 1 chiffre après virgule
+                $averageRating = ($averageRating == floor($averageRating)) ? (int) $averageRating : round($averageRating, 1); 
+            }
+        }
 
         return $this->render('user/userCave.html.twig', [
             'cellar' => $cellar,
@@ -56,14 +60,6 @@ final class UserSectionController extends AbstractController{
 
         $cellar = $entityManager->getRepository(Cellars::class)->findOneBy(['user' => $user]); // On récupère la cave liée à l'utilisateur
 
-        // Si aucune cave n'est liée à l'utilisateur on va en créer une
-        if(!$cellar) {
-            $cellar = new Cellars();
-            $cellar->setUser($user);
-            $entityManager->persist($cellar);
-            $entityManager->flush();
-        }
-
         $bottle = new Bottles(); // On fait une nouvelle bouteille
 
         // Gestion du form ensuite
@@ -72,6 +68,13 @@ final class UserSectionController extends AbstractController{
 
         if ($addBottleForm->isSubmitted() && $addBottleForm->isValid()) {
 
+            // Si aucune cave n'est liée à l'utilisateur on va en créer une
+            if(!$cellar) {
+                $cellar = new Cellars();
+                $cellar->setUser($user);
+                $entityManager->persist($cellar);
+                $entityManager->flush();
+            }
             $bottle->setCellar($cellar);
 
             $entityManager->persist($bottle);

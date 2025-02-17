@@ -38,32 +38,34 @@
 
       {# SYSTEME DE NOTATION #}
     {% if not hasVoted %}
-        <article class="notationForm">
-            <p>Faites savoir ce que vous pensez de cette cave !</p>
+        <article class="notationForm_container">
+            <div class="notationForm">
+                <h4>Faites savoir ce que vous pensez de cette cave !</h4>
                 <form method='POST' action="{{ path('submit_rating', {id: cellar.id}) }}">
                     <div class="rating_container">
                         <div class="rating">
-                        <div class="star">
-                            <i class="fa fa-star" data-value="1"></i>
+                            <div class="star">
+                                <i class="fa fa-star" data-value="1"></i>
+                            </div>
+                            <div class="star">
+                                <i class="fa fa-star" data-value="2"></i>
+                            </div>
+                            <div class="star">
+                                <i class="fa fa-star" data-value="3"></i>
+                            </div>
+                            <div class="star">
+                                <i class="fa fa-star" data-value="4"></i>
+                            </div>
+                            <div class="star">
+                                <i class="fa fa-star" data-value="5"></i>
+                            </div>
                         </div>
-                        <div class="star">
-                            <i class="fa fa-star" data-value="2"></i>
-                        </div>
-                        <div class="star">
-                            <i class="fa fa-star" data-value="3"></i>
-                        </div>
-                        <div class="star">
-                            <i class="fa fa-star" data-value="4"></i>
-                        </div>
-                        <div class="star">
-                            <i class="fa fa-star" data-value="5"></i>
-                        </div>
-                        </div>
+                        <button type='submit'>Envoyer</button>
                     </div>
-                    {# Champ caché pour la note #}
+                    {# Champ caché pour envoyer la note #}
                     <input type="hidden" id='ratingInput' name='rating' value='0'>
-                    <button type='submit'>Envoyer</button>
                 </form>
+            </div>
         </article>
     {% endif %}
     {# FIN DU SYSTEME DE NOTATION #}

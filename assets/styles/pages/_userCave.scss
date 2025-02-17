@@ -20,13 +20,7 @@
     h2 {
         border-color: var.$primaryColor!important;
     }
-
-    .star.filled  {
-
-        svg {
-            fill: var.$primaryColor!important;
-        }
-    }
+    
 
     .bottles_container {
         position: relative;
@@ -34,6 +28,8 @@
 
         .add_wrapper {
             position: absolute;
+            @include mixins.flex(column, flex-start, flex-start);
+            gap: 1rem;
             top: 10px;
             left: -50px;
 

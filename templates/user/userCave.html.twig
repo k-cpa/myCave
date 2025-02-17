@@ -9,55 +9,67 @@
         <h2>Bienvenue dans votre cave <span>{{app.user.userIdentifier}}</span></h2>
 
         {# AFFICHAGE NOTATION CAVE #}
-        {% if averageRating > 0 %}
-            <div class="averageRating">
-                <p>{{ averageRating }}/5</p>   
-            </div>
-        {% endif %}
-        {% if averageRating == 0 %}
-            <p>Aucune note pour le moment !</p>
+        {% if cellar %}
+            {% if averageRating > 0 %}
+                <div class="averageRating">
+                    <p>{{ averageRating }}/5</p>   
+                </div>
+            {% endif %}
+            {% if averageRating == 0 %}
+                <div class="averageRating">
+                    <p>Aucune note pour le moment !</p>
+                </div>
+            {% else %}
+                {% for i in 1..5 %}
+                    {% if i <= averageRating %}
+                        <div class="star filled">
+                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                            </svg>
+                        </div>
+                    {% else %}
+                        <div class="star">
+                            <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                            </svg>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
         {% else %}
-            {% for i in 1..5 %}
-                {% if i <= averageRating %}
-                    <div class="star filled">
-                        <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                        </svg>
-                    </div>
-                {% else %}
-                    <div class="star">
-                        <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                        </svg>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
+        <div class="averageRating">
+            <p>Créez votre cave en ajoutant votre première bouteille</p>
+        </div>
     </div>
+    <section class="bottles_container">
+
     {% if cellar %}
-        <section class="bottles_container">
         <div class="add_wrapper">
             <a href="{{ path('app_addBottle') }}">Ajouter une bouteille</a>
         </div>
-                {% for bottle in bottles %}
-                    <div class="bottles">
-                        <div class="img_wrapper">
-                            <img src="{{ asset('uploads/images/' ~ bottle.imageName) }}" alt="">
-                        </div>
-                        <div class="bottle_name">
-                            {{ bottle.name }}
-                        </div>
-                        <div class="bottle_year">
-                            {{ bottle.year }}
-                        </div>                
-                        <div class="bottle_description ">
-                            <h3>Mots du caviste</h3>
-                            <p class="text" data-full="{{ bottle.description }}">{{ bottle.description|length > 100 ? bottle.description|slice(0, 100) ~ '...': bottle.description }} </p>
-                            <button class="textFull_btn">Lire plus</button>
-                        </div>
+            {% for bottle in bottles %}
+                <div class="bottles">
+                    <div class="img_wrapper">
+                        <img src="{{ asset('uploads/images/' ~ bottle.imageName) }}" alt="">
                     </div>
-                {% endfor %}
+                    <div class="bottle_name">
+                        {{ bottle.name }}
+                    </div>
+                    <div class="bottle_year">
+                        {{ bottle.year }}
+                    </div>                
+                    <div class="bottle_description ">
+                        <h3>Mots du caviste</h3>
+                        <p class="text" data-full="{{ bottle.description }}">{{ bottle.description|length > 100 ? bottle.description|slice(0, 100) ~ '...': bottle.description }} </p>
+                        <button class="textFull_btn">Lire plus</button>
+                    </div>
+                </div>
+            {% endfor %}
         </section>
+    {% endif %}
+        <div class="add_wrapper">
+            <a href="{{ path('app_addBottle') }}">Créez votre cave !</a>
+        </div>
     {% endif %}
 
 

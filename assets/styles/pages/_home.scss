@@ -193,7 +193,7 @@
                     border: 1px solid var.$textColor;
     
                     &:focus {
-                        background-color: var.$secondaryColor;
+                        background-color: var.$thirdColor;
                     }
                 }
 
@@ -206,7 +206,7 @@
                     width: 100%;
 
                     &:focus {
-                        background-color: var.$secondaryColor;
+                        background-color: var.$thirdColor;
                     }
                 }
 
