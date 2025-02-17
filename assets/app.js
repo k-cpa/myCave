@@ -66,6 +66,40 @@ document.querySelectorAll('.bottle_description').forEach(description => {
 });
 
 
+document.addEventListener("DOMContentLoaded", function () {
+    const imageInput = document.getElementById("add_bottle_imageFile"); // Input de type file
+    const previewImage = document.getElementById("img_preview"); // L'image d'aperçu
+    const imageSpan = document.getElementById("image_span"); // Le texte "Aucune image téléchargée"
+
+    // Par défaut, on affiche le texte "Aucune image téléchargée" et on cache l'image
+    previewImage.style.display = "none"; 
+    imageSpan.style.display = "block"; 
+
+    // Lorsque l'utilisateur sélectionne un fichier
+    imageInput.addEventListener("change", function () {
+        const file = this.files[0]; // On récupère le premier fichier sélectionné
+
+        // Si un fichier est sélectionné
+        if (file) {
+            const reader = new FileReader(); // Créer un lecteur de fichier
+
+            reader.onload = function (event) {
+                // Lorsque le fichier est lu, on met l'URL de l'image dans l'élément <img>
+                previewImage.src = event.target.result; 
+                previewImage.style.display = "block"; // Afficher l'image
+                imageSpan.style.display = "none"; // Cacher le texte
+            };
+
+            reader.readAsDataURL(file); // Lire le fichier et obtenir l'URL de données
+        } else {
+            // Si aucun fichier n'est sélectionné, on réinitialise
+            previewImage.src = ""; 
+            previewImage.style.display = "none"; // Cacher l'image
+            imageSpan.style.display = "block"; // Réafficher le texte
+        }
+    });
+});
+
 
 
 

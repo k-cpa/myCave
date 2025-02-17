@@ -47,7 +47,10 @@ class AddBottleType extends AbstractType
                 'class' => Regions::class,
                 'choice_label' => 'name',
             ])
-            ->add('submit', SubmitType::class, ['label' => 'Ajouter à ma cave']);
+            ->add('submit', SubmitType::class, [
+                'label' => 'Ajouter à ma cave',
+                'attr' => ['class' => 'submit_btn'],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
