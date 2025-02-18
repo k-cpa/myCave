@@ -10,7 +10,8 @@
 
         {# AFFICHAGE NOTATION CAVE #}
         {% if cellar %}
-            {% if averageRating > 0 %}
+            <div class="rating_userContainer">
+                {% if averageRating > 0 %}
                 <div class="averageRating">
                     <p>{{ averageRating }}/5</p>   
                 </div>
@@ -35,20 +36,41 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-            {% endif %}
+            {% endif %}    
+            </div>
         {% else %}
-        <div class="averageRating">
-            <p>Créez votre cave en ajoutant votre première bouteille</p>
-        </div>
+            <div class="averageRating">
+                <p>Créez votre cave en ajoutant votre première bouteille</p>
+            </div>
+        {% endif %}
+        {% if cellar and cellar.description == null %}
+            <div class="add_description_container">
+                <a href="{{ path('app_addMessage') }}">Créer un message d'accueil</a>
+            </div>
+        {% endif %}
     </div>
-    <section class="bottles_container">
-
-    {% if cellar %}
-        <div class="add_wrapper">
-            <a href="{{ path('app_addBottle') }}">Ajouter une bouteille</a>
+    {% if cellar and cellar.description != null %}
+        <div class="description">
+            <p>{{ cellar.description }}</p>
         </div>
+    {% endif %}
+    <section class="bottles_container">
+        {% if cellar %}
+            <div class="add_wrapper">
+                <a href="{{ path('app_addBottle') }}">Ajouter une bouteille</a>
+            </div>
             {% for bottle in bottles %}
                 <div class="bottles">
+                    <div class="modify_suppress">
+                        <a href=" {{path('app_update', {'id' : bottle.id})}}">Modifier</a>
+
+                        {# Form caché pour suppression #}
+                        <form method="POST" onsubmit="return confirm('Confirmer la suppression ?')" action="{{ path('app_delete', {'id': bottle.id}) }}">
+                            <input type="hidden" name="_method" value="delete"> {#Cette ligne est pour eviter les conflits --> creuser pourquoi quand meme #}
+                            <input type="hidden" name="_token" value=" {{ csrf_token('SUP' ~ bottle.id) }}"> 
+                            <input id="delete" type="submit" value="Supprimer">
+                        </form>
+                    </div>
                     <div class="img_wrapper">
                         <img src="{{ asset('uploads/images/' ~ bottle.imageName) }}" alt="">
                     </div>
@@ -65,12 +87,12 @@
                     </div>
                 </div>
             {% endfor %}
-        </section>
-    {% endif %}
-        <div class="add_wrapper">
-            <a href="{{ path('app_addBottle') }}">Créez votre cave !</a>
-        </div>
-    {% endif %}
+        {% else %}
+            <div class="add_wrapper">
+                <a href="{{ path('app_addBottle') }}">Créez votre cave !</a>
+            </div>
+        {% endif %}
+    </section>
 
 
 </main>

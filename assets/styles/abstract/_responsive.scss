@@ -1,7 +1,48 @@
 @use "../abstract/mixins";
 @use "../abstract/variables" as var;
 
+@media screen and (max-width: 1600px) {
+
+    // PARTIE CAVE UNIQUE 
+    .unitCave {
+        
+        .bottles_container {
+            column-gap: 5rem;
+        }
+    }
+}
+
 @media screen and (max-width: 1100px) {
+
+    // Header
+
+    header {
+        nav {
+
+            .logo_wrapper {
+                padding-left: 2%;
+            }
+
+            .connect_links {
+                gap: 0.2rem;
+                padding-right: 2%;
+
+                a {
+                    padding: 5px;
+                }
+            }
+        }
+    }
+
+    // PARTIE CAVE UNIQUE 
+    .unitCave {
+        
+        .bottles_container {
+            grid-template-columns: repeat(3, 1fr);
+            column-gap: 3rem;
+        }
+    }
+
     .login_signin {
         .element_container {
 
@@ -23,6 +64,88 @@
 }
 
 @media screen and (max-width: 950px) {
+
+    // Burger menu pour boutons nav
+    header {
+        nav {
+            height: 60px;
+            position: relative;
+            flex-direction: column;
+
+            .burger_icon {
+                z-index: 1000;
+
+                .fa-xmark {
+                    color: black
+                }
+            }
+
+            .burger_bg {
+                @include mixins.flex(column, center, center);
+                flex-direction: column;
+                display: none;
+                width: 100vw;
+                height: calc(100vh);
+                
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                transition: .3s ease;
+                overflow: hidden;
+
+                ul {
+                    flex-direction: column;
+                    height: 30%;
+                }
+
+                .connect_links {
+                    flex-direction: column;
+                }
+
+                li {
+                    opacity: 0;
+                }
+            }
+
+            .burger_menu {
+                display: block;
+                position: absolute;
+                top: 50%;
+                right: 10%;
+                transform: translate(-50%, -50%);
+            }
+
+            // gestion animation burger menu
+            .burger_menu.active {
+
+                span:nth-child(1) {
+                    top: 50%;            transform: translate(-50%, -50%) rotate(45deg);
+                }
+                span:nth-child(2) {
+                    opacity: 0;
+                }
+                span:nth-child(3) {
+                    top: 50%;
+                    transform: translate(-50%, -50%) rotate(-45deg);
+                }
+            }
+
+            // lien menu
+            .burger_bg.active {
+                display: flex;
+                overflow-y: scroll;
+                inset: 0;
+                z-index: 100;
+                background-color: white;
+
+                li {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
     .caves {
 
         .cellars_container {
@@ -82,6 +205,46 @@
 }
 
 @media screen and (max-width: 767px) {
+    
+    // PARTIE CAVE UNIQUE 
+    .unitCave {
+
+        .title {
+            flex-direction: column;
+            gap: 2rem;
+            width: 100%;
+            margin-left: 0;
+
+            h2 {
+                border: none;
+            }
+        }
+        
+        .bottles_container {
+            grid-template-columns: 1fr;
+            width: 70%;
+        }
+
+        .description {
+            align-self: center;
+            text-align: center;
+            width: 80%;
+            margin: 4rem 0 4rem 0;
+        }
+    }
+
+    // Pour la gestion de l'affichage du bouton ajouter une bouteille
+    .yourCave {
+
+        .bottles_container {
+
+            .add_wrapper {
+                left: 50%;
+                top: 0;
+                transform: translate(-50%);
+            }
+        }
+    }
     .login_signin {
 
         .element_container {
@@ -99,12 +262,25 @@
     .caves {
 
         .cellars_container {
-            flex-direction: reverse-column;
-            height: 400px;
+            @include mixins.flex(column-reverse, center, center);
+            height: fit-content;
 
-            .visit_links {
+            .cellar_firstColumn {
+                
+                .description {
+                    width: 100%;
+                }
+            }
 
-                position: relative;
+            .visit_link {
+                display: none;
+            }
+
+            .visit_link_responsive {
+                @include mixins.flex(row, center, center);
+                width: 100%;
+                margin-top: 1rem;
+                margin-bottom: 1rem;
             }
         }
     }

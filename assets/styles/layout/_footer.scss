@@ -1,0 +1,139 @@
+@use "../abstract/mixins";
+@use "../abstract/variables" as var;
+
+footer {
+    @include mixins.flex ($direction: column);
+    background: white;
+
+    a {
+        color: var.$primaryColor;
+        transition: .3s ease;
+
+        &:hover {
+            color: var.$thirdColor;
+        }
+    }
+
+    .logo_wrapper {
+        margin-top: 2rem;
+        width: 90%;
+        cursor: pointer;
+
+        img {
+            width: 15%;
+            object-fit: cover
+        }
+    }
+
+    .upper_footer {
+        width: 90%;
+        @include mixins.flex($justify: space-around);
+
+        #form_newsletter {
+            form {
+                @include mixins.flex($direction: column);
+            } 
+
+            label {
+                margin-bottom: 0.5rem;
+                align-self: flex-start;
+             }
+
+            .inline_form {
+                @include mixins.flex;
+            }
+
+            input {
+                all: unset;
+                width: 180px;
+                padding: 5px 10px;
+                border: 1px solid var.$primaryColor;
+                border-radius: 5px;
+                margin-right: 1rem;
+                height: 100%;
+                transition: .3s ease;
+
+                &:focus {
+                    border-color: var.$thirdColor;
+                }
+            }
+
+            button {
+                all: unset;
+                background-color: var.$primaryColor;
+                border-radius: 5px;
+                color: black;
+                padding: 5px 10px;
+                height: 100%;
+                transition: .3s ease;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: var.$thirdColor;
+                }
+            }
+
+            .feedback_newsletter {
+                background-color: red;
+                margin-top: 2rem;
+            }
+        }
+
+        .socials {
+            .fa-brands {
+                padding-top: .5rem;
+                font-size: 1.7rem;
+                cursor: pointer;
+                color: var.$primaryColor;
+                transition: .3s ease;
+
+                &:hover {
+                    color : var.$thirdColor;
+                    transform: scale(1.1);
+                }
+            }
+        }
+
+        .contact {
+            @include mixins.flex($direction: column, $align: flex-start);
+
+            .contact_content {
+                @include mixins.flex($direction: column, $align: flex-start);
+                margin-top: 0.5rem;
+            }
+        }
+    }
+
+    .bottom_footer {
+        @include mixins.flex($justify: space-between);
+        margin-top: 5rem;
+        padding: 1.5rem;
+        border-top: 1px solid var.$primaryColor;
+        font-size: .8rem;
+        width: 80%;
+
+        .rights {
+            // permet le inline pour le lien + texte
+            @include mixins.flex;
+            a {
+                color: var.$thirdColor;
+            }
+        }
+
+        nav {
+            @include mixins.flex;
+
+            ul {
+                @include mixins.flex;
+                gap: 1rem;
+                line-height: .8rem;
+
+                // border séparateur entre les liens
+                a:not(:last-child) {
+                    border-right: 1px solid var.$primaryColor;
+                    padding-right: 1rem;
+                }
+            }
+        }
+    }
+}

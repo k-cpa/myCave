@@ -12,7 +12,7 @@
         align-self: flex-start;
         width: 60%;
         margin-left: 3rem;
-        margin-top: 4rem;
+        margin-top: calc(4rem + 60px);
         border-bottom: 1px solid var.$thirdColor;
         padding-bottom: 3rem;
 
@@ -20,6 +20,10 @@
             font-size: 2em;
             border-right: 1px solid var.$thirdColor;
             padding-right: 2rem;
+        }
+
+        .rating_userContainer {
+            @include mixins.flex;
         }
 
         span {

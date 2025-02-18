@@ -17,25 +17,40 @@
     {% block header %}
         <header>
             <nav>
-                <ul>
-                    {# Affichage pour le panel administrateur #}
-                    {% if is_granted('ROLE_ADMIN') %}
-                    {# target blank pour ouvrir dans new tab et noopener noreferrer pour éviter les attaques pishing (vieux post stack over flow de 2017 - utile ?) #} 
-                        <li><a href="{{ path('app_admin') }}" target="_blank" rel="noopener noreferrer">Gestionnaire</a></li>
-                    {% endif %}
-                    <li><a href="{{ path('app_home') }}">Accueil</a></li>
-                    <li><a href="{{ path('app_allCaves') }}">Les caves</a></li>
-                </ul>
+                <div class="burger_menu">
+                    <div class="burger_icon">
+                        <i class="fa-solid fa-bars"></i>
+                    </div>
+                </div>
+                <div class="burger_bg">
+                    <div class="logo_wrapper">
+                        <a href="{{ path('app_home') }}">
+                            <img src="{{ asset('img/logo.png') }}" alt="Logo de My Cave">
+                        </a>
+                    </div>
+                    <ul>
+                        <li><a href="{{ path('app_home') }}">Accueil</a></li>
+                        {% if is_granted('ROLE_USER') %}
+                            <li><a href="{{ path('app_allCaves') }}">Les caves</a></li>
+                        {% endif %}
+                    </ul>
+                    <div class="connect_links">
+                        {# Affichage pour le panel administrateur #}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            {# target blank pour ouvrir dans new tab et noopener noreferrer pour éviter les attaques pishing (vieux post stack over flow de 2017 - utile ?) #} 
+                            <a href="{{ path('app_admin') }}" target="_blank" rel="noopener noreferrer">Gestionnaire</a>
+                        {% endif %}
+                        {# Affichage si USER connecté #}
+                        {% if is_granted('ROLE_USER') %}
+                            <a href="{{ path('app_userCave') }}">Mon espace</a>
+                            <a href="{{ path('app_logout') }}">Déconnexion</a>
+                        {% else %}
+                            <a href="{{ path('app_login') }}">Connexion</a>
+                            <a href="{{ path('app_signin') }}">Inscription</a>
+                        {% endif %}
+                    </div>
+                </div>
             </nav>
-            <div class="connect_links">
-                {% if is_granted('ROLE_USER') %}
-                    <a href="{{ path('app_userCave') }}">Ma cave</a>
-                    <a href="{{ path('app_logout') }}">Déconnexion</a>
-                {% else %}
-                    <a href="{{ path('app_login') }}">Connexion</a>
-                    <a href="{{ path('app_signin') }}">Inscription</a>
-                {% endif %}
-            </div>
         </header>
     {% endblock %}
     <body>
@@ -46,4 +61,60 @@
             {% endblock %}
         {% endblock %}
     </body>
+        {# {% block footer %}
+            <footer>
+                <div class="logo_wrapper">
+                    <a href="#bg_landing_main">
+                        <img src="{{asset('img/logo/logo_head.png')}}" alt="Logo de la société 3D2CAD"> 
+                    </a>
+                </div>
+                <div class="upper_footer">
+                    <div class="hook_text">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </div>
+                    <div id="form_newsletter">
+                        <form id="newsletter" action="action/process_newsletter.php" method="post">
+                            <label for="email">Suivre nos actualités</label>
+                            <div class="inline_form">
+                                <input type="email" id="email" name="email" placeholder="Email">
+                                <button type="submit">Restez informé</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="socials">
+                        <p>Nous suivre</p>
+                        <a href="https://www.linkedin.com/in/paul-t-4a5591105/">
+                            <i class="fa-brands fa-linkedin"></i>
+                        </a>
+                    </div>
+                    <div class="contact">
+                        <p>Nous contacter</p>
+                        <div class="contact_content">
+                            <a href="tel:+33627936258">0666193199</a>
+                            <a href="mailto:paul.texier.scan@gmail.com">paul.texier.scan@gmail.com</a> <!-- changer pour son mail pro à réception --> 
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom_footer">
+                    <div class="rights">
+                        <p>2024 | Tous droits réservés</p>
+                    </div>
+                    <div class="legal_notice">
+                        <nav>
+                            <ul>
+                                <a href="">
+                                    <li>Politiques de confidentialité</li>
+                                </a>
+                                <a href="">
+                                    <li>Conditions d'utilisation</li>
+                                </a>
+                                <a href="">
+                                    <li>Mentions légales</li>
+                                </a>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </footer>
+        {% endblock %} #}
 </html>

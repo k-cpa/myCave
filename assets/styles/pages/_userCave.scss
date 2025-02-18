@@ -11,6 +11,25 @@
 
     .title {
         border-color: var.$primaryColor!important;
+        position: relative;
+
+        .add_description_container {
+            position: absolute;
+            top: 60%;
+            left: 0;
+
+            a {
+                color: white;
+                padding: 5px 10px;
+                border: 1px solid var.$primaryColor;
+                border-radius: 10px;
+                transition: .3s ease;
+
+                &:hover {
+                    background-color: var.$primaryColor;
+                }
+            }
+        }
     }
 
     span {
@@ -56,6 +75,25 @@
 
         button {
             color: var.$primaryColor!important;
+        }
+    }
+
+    .modify_suppress {
+        @include mixins.flex;
+        gap: 1rem;
+
+        a {
+            padding: 5px 10px;
+            background-color: var.$thirdColor;
+            color: white;
+            border-radius: 10px;
+        }
+
+        input {
+            all: unset;
+            padding: 5px 10px;
+            background-color: var.$primaryColor;
+            border-radius: 10px;
         }
     }
 }

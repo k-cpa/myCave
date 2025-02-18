@@ -34,7 +34,7 @@ final class HomeController extends AbstractController{
                 ->to('kevcampana@gmail.com')
                 ->subject('Nouveau message de contact')
                 ->text(
-                    "Nom: {$data['name']}\n".
+                    "Nom: {$data['nom']}\n".
                     "Email: {$data['email']}\n\n".
                     "Message:\n{$data['message']}"
                 );

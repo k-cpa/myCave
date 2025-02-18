@@ -33,7 +33,6 @@ class BottlesCrudController extends AbstractCrudController
             AssociationField::new('regions', 'Région')
                 ->setFormTypeOptions([
                     'choice_label' => 'name',
-                    'by_reference' => false,
                     'multiple' => false,
                 ]),
             ImageField::new('imageName', 'image')
@@ -43,3 +42,5 @@ class BottlesCrudController extends AbstractCrudController
         ];
     }
 }
+
+

@@ -8,6 +8,7 @@
 
     .banner {
         @include mixins.flex;
+        margin-top: 60px;
         width: 100%;
     
         .title_banner {
@@ -187,6 +188,7 @@
                     all: unset;
                     width: 100%;
                     background-color: white;
+                    color: black;
                     height: 35px;
                     padding-left: 5px;
                     border-radius: 5px;
@@ -200,6 +202,7 @@
                 textarea {
                     all: unset;
                     background-color: white;
+                    color: black;
                     border-radius: 5px;
                     padding-left: 5px;                                                      
                     height: 150px;

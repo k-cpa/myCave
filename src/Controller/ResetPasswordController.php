@@ -60,7 +60,7 @@ final class ResetPasswordController extends AbstractController
         ]);
     }
 
-    #[Route('/reset-password/{token}', name: 'app_reset_password')]
+    #[Route('/{token}/reset-password', name: 'app_reset_password')]
     public function reset(string $token, Request $request, UsersRepository $usersRepository, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHash): Response
     {
         $user = $usersRepository->findOneBy(['resetToken' => $token]); // Requete DQL pour récupérer l'objet User associé au token

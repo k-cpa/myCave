@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau message d'accueil{% endblock %}
+{% block header %}{% endblock %}
+{% block body %}
+<main class="form_page">
+    <div class="title">
+        <h2>Ajouter un message d'accueil à votre cave</h2>
+        <a href="{{ path('app_userCave') }}">Retour</a>
+    </div>
+    <article class="form_page_container">
+        {{ form_start(descriptionCellarForm) }}
+
+            {{ form_row(descriptionCellarForm.description) }}
+            {{form_row(descriptionCellarForm.submit)}}
+        
+        {{ form_end(descriptionCellarForm) }}   
+    </article>
+
+
+</main>
+
+{% endblock %}

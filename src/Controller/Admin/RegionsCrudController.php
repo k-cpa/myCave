@@ -21,7 +21,7 @@ class RegionsCrudController extends AbstractCrudController
     {
         return [
             TextField::new('name', 'Régions'),
-            AssociationField::new('country', 'Pays')
+            AssociationField::new('country', 'Pays'),
         ];
     }
 

@@ -10,6 +10,12 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import '@fortawesome/fontawesome-free/js/all.js';
 import Choices from 'choices.js';
 
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Gestion select déroulant dans form addBottle avec Choices.js
+
 document.addEventListener('DOMContentLoaded', () => {
     const grapesSelect = document.getElementById('add_bottle_grapes');
 
@@ -23,6 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Gestion display notes de cave via svg étoiles dans les caves 
 
 // Lors que le DOM est entièrement chargé 
 document.addEventListener('DOMContentLoaded', () => {
@@ -48,7 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
    };
 });
 
-// Gestion affichage fullText page unitCave
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Gestion affichage fullText pour les descriptions de bouteilles -> page unitCave
+
 document.querySelectorAll('.bottle_description').forEach(description => {
     description.addEventListener('click', () => {
         let textElement = description.querySelector('.text');
@@ -65,6 +78,9 @@ document.querySelectorAll('.bottle_description').forEach(description => {
     });
 });
 
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// Gestion thumbnail avec FileLoader() pour form addBottle 
 
 document.addEventListener("DOMContentLoaded", function () {
     const imageInput = document.getElementById("add_bottle_imageFile"); // Input de type file
@@ -100,6 +116,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// GESTION BURGER MENU RESPONSIVE 
+const burgerMenu = document.querySelector('.burger_menu');
+const menu = document.querySelector('.burger_bg');
+const burgerIcon = document.querySelector('.burger_icon');
 
+burgerMenu.addEventListener('click', () => 
+{
+    menu.classList.toggle('active');
+    burgerMenu.classList.toggle('active');
 
-
+    if (burgerIcon.innerHTML === "<i class='fa-solid fa-bars'></i>") {
+        burgerIcon.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+    } else {
+        burgerIcon.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+    }
+})
