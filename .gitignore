@@ -33,5 +33,3 @@ yarn-error.log
 
 # Pour la mise en ligne : 
 # Supprimer public/build
-# Supprimer /vendor
-# Supprimer 
